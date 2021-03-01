@@ -20,10 +20,11 @@ ThemeData defaultThemeData(BuildContext context) {
           bodyColor: kTextColor,
         )
         .copyWith(
-            headline6: TitleTextStyle,
-            subtitle1: SubTitleTextStyle,
-            bodyText1: TextTextStyle,
-            caption: InactiveTextTextStyle),
+          headline6: TitleTextStyle,
+          subtitle1: SubTitleTextStyle,
+          bodyText1: TextTextStyle,
+          caption: InactiveTextTextStyle,
+        ),
     colorScheme:
         ColorScheme.light(primary: kMainColor, secondary: kDetailsColor),
   );
