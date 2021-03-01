@@ -7,7 +7,7 @@ const TextSize = 16.0;
 const InactiveTextSize = 12.0;
 
 const kBackgroundColor = Color(0xFF222831);
-const kMainColor = Color(0xFF50e961);
+const kMainColor = Color(0xFF50E961);
 const kDetailsColor = Color(0xFF46CE57);
 const kInactiveColor = Color(0xFFC1C1C1);
 const kTextColor = Color(0xFFFFFFFF);
