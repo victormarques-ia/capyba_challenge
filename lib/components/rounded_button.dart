@@ -31,7 +31,7 @@ class RoundedButton extends StatelessWidget {
           onPress();
         },
         child: Container(
-          height: height != null ? height : 55,
+          height: height != null ? height : 58,
           child: Center(
             child: Text(
               text,

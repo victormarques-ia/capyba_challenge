@@ -6,21 +6,26 @@ class CustomInputField extends StatelessWidget {
   final IconData iconData;
   final TextInputType inputType;
   final EdgeInsets fieldMargin;
+  final Function onChanged;
 
-  CustomInputField(
-      {@required this.hint,
-      @required this.iconData,
-      @required this.inputType,
-      @optionalTypeArgs this.fieldMargin});
+  CustomInputField({
+    @required this.hint,
+    @required this.iconData,
+    @required this.inputType,
+    @optionalTypeArgs this.fieldMargin,
+    @optionalTypeArgs this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: fieldMargin != null ? fieldMargin : EdgeInsets.only(bottom: 24),
       child: TextFormField(
+        onChanged: onChanged,
         cursorColor: Theme.of(context).primaryColor,
         keyboardType: inputType,
         keyboardAppearance: Brightness.dark,
+        obscureText: inputType == TextInputType.visiblePassword ? true : false,
         style: InputTextStyle,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
