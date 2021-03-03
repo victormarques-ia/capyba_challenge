@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 class UserFormController {
   final user = ValueNotifier<User>(new User());
 
+  changeAvatar(String value) => user.value.avatarAddress = value;
+
   changeName(String value) => user.value.name = value;
 
   changeEmail(String value) => user.value.email = value;
@@ -19,6 +21,7 @@ class UserFormController {
   register() {
     print(
       {
+        user.value.avatarAddress,
         user.value.name,
         user.value.email,
         user.value.password,

@@ -8,7 +8,7 @@ ThemeData defaultThemeData(BuildContext context) {
     scaffoldBackgroundColor: kBackgroundColor,
     appBarTheme: appBarTheme,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: kBackgroundColor.withOpacity(0.05),
       selectedItemColor: kMainColor,
       unselectedItemColor: kInactiveColor,
       selectedIconTheme: IconThemeData(color: kDetailsColor),
