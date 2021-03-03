@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class UserAvatar extends StatelessWidget {
-  final userAvatarImage =
-      "https://images.unsplash.com/photo-1492462543947-040389c4a66c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
+  final dynamic userAvatarImage;
+
+  const UserAvatar({Key key, @required this.userAvatarImage}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
@@ -11,9 +14,11 @@ class UserAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: 72.0,
         backgroundColor: Theme.of(context).primaryColor,
-        backgroundImage: NetworkImage(
-          userAvatarImage,
-        ),
+        backgroundImage: userAvatarImage != null
+            ? Image.file(
+                new File(userAvatarImage),
+              )
+            : NetworkImage("https://www.w3schools.com/howto/img_avatar.png"),
       ),
     );
   }

@@ -21,11 +21,11 @@ class UserFormController {
   register() {
     print(
       {
-        user.value.avatarAddress,
-        user.value.name,
-        user.value.email,
-        user.value.password,
-        user.value.bio,
+        "Avatar": user.value.avatarAddress,
+        "Name": user.value.name,
+        "Email": user.value.email,
+        "Password": user.value.password,
+        "Bio": user.value.bio,
       },
     );
   }

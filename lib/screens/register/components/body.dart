@@ -26,7 +26,12 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 30.0),
               child: Stack(
                 children: [
-                  UserAvatar(),
+                  ValueListenableBuilder(
+                    valueListenable: userFormController.user,
+                    builder: (context, value, child) {
+                      return UserAvatar(userAvatarImage: value.avatarAddress);
+                    },
+                  ),
                   cameraWidget(context),
                 ],
               ),
@@ -47,9 +52,13 @@ class Body extends StatelessWidget {
       bottom: 8.0,
       right: 0.0,
       child: InkWell(
-        onTap: () => Navigator.pushNamed(
+        onTap: () => Navigator.push(
           context,
-          CameraScreen.routeName,
+          MaterialPageRoute(
+            builder: (context) => CameraScreen(
+              changeImage: userFormController.changeAvatar,
+            ),
+          ),
         ),
         child: Container(
           padding: EdgeInsets.all(6.0),
