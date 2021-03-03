@@ -12,7 +12,6 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex: 1,
               child: Container(
                 child: Image(
                   image: AssetImage("assets/images/capyba_simbolo.png"),
