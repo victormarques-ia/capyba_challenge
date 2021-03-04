@@ -13,47 +13,62 @@ class RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomInputField(
-          hint: "Nome",
-          iconData: FeatherIcons.italic,
-          inputType: TextInputType.text,
-          onChanged: userFormController.onSavedName,
-        ),
-        CustomInputField(
-          hint: "E-mail",
-          iconData: FeatherIcons.mail,
-          inputType: TextInputType.emailAddress,
-          onChanged: userFormController.onSavedEmail,
-        ),
-        CustomInputField(
-          hint: "Senha",
-          iconData: FeatherIcons.lock,
-          inputType: TextInputType.visiblePassword,
-          onChanged: userFormController.onSavedPassword,
-        ),
-        CustomInputField(
-          hint: "Bio",
-          iconData: FeatherIcons.italic,
-          inputType: TextInputType.text,
-          fieldMargin: EdgeInsets.only(bottom: 48.0),
-          onChanged: userFormController.onSavedBio,
-        ),
-        Container(
-          child: Column(
-            children: [
-              RoundedButton(
-                text: "Cadastrar",
-                color: Theme.of(context).primaryColor,
-                onPress: () async {
-                  userFormController.register();
-                },
-              ),
-            ],
+    return Form(
+      key: userFormController.registerForm,
+      autovalidateMode: AutovalidateMode.always,
+      child: Column(
+        children: [
+          CustomInputField(
+            hint: "Nome",
+            iconData: FeatherIcons.italic,
+            inputType: TextInputType.text,
+            validator: userFormController.validateName,
+            onChanged: userFormController.onSavedName,
           ),
-        ),
-      ],
+          CustomInputField(
+            hint: "E-mail",
+            iconData: FeatherIcons.mail,
+            inputType: TextInputType.emailAddress,
+            validator: userFormController.validateEmail,
+            onChanged: userFormController.onSavedEmail,
+          ),
+          CustomInputField(
+            hint: "Senha",
+            iconData: FeatherIcons.lock,
+            inputType: TextInputType.visiblePassword,
+            validator: userFormController.validatePassword,
+            onChanged: userFormController.onSavedPassword,
+          ),
+          CustomInputField(
+            hint: "Bio",
+            iconData: FeatherIcons.italic,
+            inputType: TextInputType.text,
+            fieldMargin: EdgeInsets.only(bottom: 48.0),
+            onChanged: userFormController.onSavedBio,
+          ),
+          Container(
+            child: Column(
+              children: [
+                RoundedButton(
+                  text: "Cadastrar",
+                  color: Theme.of(context).primaryColor,
+                  onPress: () async {
+                    if (userFormController.user.avatarAddress == null) {
+                      await userFormController.showCustomDialogImage(context);
+                    } else {
+                      await userFormController.register();
+                      if (!userFormController.validate) {
+                        await userFormController
+                            .showCustomDialogRegister(context);
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

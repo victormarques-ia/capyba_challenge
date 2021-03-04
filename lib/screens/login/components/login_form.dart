@@ -11,8 +11,8 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final userFormController = Provider.of<UserFormController>(context);
     return Form(
-      key: userFormController.formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: userFormController.loginForm,
+      autovalidateMode: AutovalidateMode.always,
       child: Column(
         children: [
           CustomInputField(
@@ -59,7 +59,7 @@ class LoginForm extends StatelessWidget {
                     await userFormController.login();
 
                     if (!userFormController.validate) {
-                      userFormController.showCustomDialog(context);
+                      await userFormController.showCustomDialogLogin(context);
                     }
                   },
                 ),

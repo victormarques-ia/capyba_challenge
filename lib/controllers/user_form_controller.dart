@@ -3,13 +3,15 @@ import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/repositories/user/user_repository.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
+import 'package:capyba_challenge/utils/custom_show_bottom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class UserFormController with ChangeNotifier {
   final _user = new UserModel();
-  final formKey = GlobalKey<FormState>();
+  final loginForm = GlobalKey<FormState>();
+  final registerForm = GlobalKey<FormState>();
   bool _validate = false;
 
   final AuthService _authService = new AuthService();
@@ -72,14 +74,51 @@ class UserFormController with ChangeNotifier {
     }
   }
 
-  Future<void> showCustomDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => CustomBottomDialog(
+  String validateName(String value) {
+    if (value.length == 0) {
+      return 'Por favor, preencha o campo com o seu nome';
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> showCustomDialogLogin(BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
         textMessage: "Login ou senha inválidos.",
         backgroundColor: kErrorColor,
         iconMessage: FeatherIcons.alertTriangle,
+        labelDialog: "Login",
       ),
+      "Login",
+    );
+  }
+
+  Future<void> showCustomDialogRegister(BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
+        textMessage:
+            "Houve um erro ao tentar fazer o cadastro, tente novamente.",
+        backgroundColor: kErrorColor,
+        iconMessage: FeatherIcons.alertTriangle,
+        labelDialog: "Register",
+      ),
+      "Register",
+    );
+  }
+
+  Future<void> showCustomDialogImage(BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
+        textMessage: "É necessário adicionar uma imagem.",
+        backgroundColor: kErrorColor,
+        iconMessage: FeatherIcons.alertTriangle,
+        labelDialog: "AvatarImage",
+      ),
+      "AvatarImage",
     );
   }
 
@@ -98,6 +137,8 @@ class UserFormController with ChangeNotifier {
   register() async {
     try {
       UserModel user = await _authService.registerUser(_user);
+
+      _validate = user != null;
 
       UserModel updatedUser = new UserModel(
         uid: user.uid,
