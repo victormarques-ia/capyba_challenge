@@ -11,7 +11,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userFormController = Provider.of<UserFormController>(context);
-    return ListView(
+    return Column(
       children: [
         CustomInputField(
           hint: "E-mail",

@@ -14,35 +14,37 @@ class Body extends StatelessWidget {
     final userFormController = Provider.of<UserFormController>(context);
 
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: 20.0,
-          bottom: 40.0,
-          left: 16.0,
-          right: 16.0,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
-              child: Stack(
-                children: [
-                  UserAvatar(
-                    userAvatarImage: userFormController.user.avatarAddress,
-                  ),
-                  cameraWidget(context, userFormController),
-                ],
-              ),
+      child: ListView(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: 20.0,
+              bottom: 40.0,
+              left: 16.0,
+              right: 16.0,
             ),
-            Expanded(
-              child: RegisterForm(
-                userFormController: userFormController,
-              ),
-            )
-          ],
-        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 30.0),
+                  child: Stack(
+                    children: [
+                      UserAvatar(
+                        userAvatarImage: userFormController.user.avatarAddress,
+                      ),
+                      cameraWidget(context, userFormController),
+                    ],
+                  ),
+                ),
+                RegisterForm(
+                  userFormController: userFormController,
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

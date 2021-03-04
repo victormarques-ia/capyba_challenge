@@ -13,7 +13,7 @@ class RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         CustomInputField(
           hint: "Nome",
