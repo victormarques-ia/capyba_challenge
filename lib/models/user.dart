@@ -1,22 +1,22 @@
 // ignore_for_file: unnecessary_getters_setters
 class User {
-  String _id;
+  String _uid;
   String _name;
   String _email;
   String _password;
   String _avatarAddress;
   String _bio;
-  bool _activated;
+  String _activated;
 
   User(
-      {String id,
+      {String uid,
       String name,
       String email,
       String password,
       String avatarAddress,
       String bio,
-      bool activated}) {
-    this._id = id;
+      String activated}) {
+    this._uid = uid;
     this._name = name;
     this._email = email;
     this._password = password;
@@ -25,8 +25,8 @@ class User {
     this._activated = activated;
   }
 
-  String get id => _id;
-  set id(String id) => _id = id;
+  String get uid => _uid;
+  set uid(String uid) => _uid = uid;
   String get name => _name;
   set name(String name) => _name = name;
   String get email => _email;
@@ -37,11 +37,11 @@ class User {
   set avatarAddress(String avatarAddress) => _avatarAddress = avatarAddress;
   String get bio => _bio;
   set bio(String bio) => _bio = bio;
-  bool get activated => _activated;
-  set activated(bool activated) => _activated = activated;
+  String get activated => _activated;
+  set activated(String activated) => _activated = activated;
 
   User.fromJson(Map<String, dynamic> json) {
-    _id = json['id'];
+    _uid = json['uid'];
     _name = json['name'];
     _email = json['email'];
     _password = json['password'];
@@ -52,7 +52,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
+    data['uid'] = this._uid;
     data['name'] = this._name;
     data['email'] = this._email;
     data['password'] = this._password;

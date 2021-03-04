@@ -36,10 +36,14 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               Container(
                 alignment: Alignment.centerRight,
-                child: FlatButton(
-                  padding: EdgeInsets.only(top: 12.0, bottom: 24.0),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
+                child: TextButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.resolveWith(
+                      (states) => EdgeInsets.only(top: 12.0, bottom: 24.0),
+                    ),
+                    foregroundColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.transparent),
+                  ),
                   onPressed: () => {},
                   child: Text(
                     "Esqueceu a senha?",
@@ -56,10 +60,14 @@ class _LoginFormState extends State<LoginForm> {
                     userFormController.login();
                     Navigator.pushNamed(context, MainNavigation.routeName);
                   }),
-              FlatButton(
-                padding: EdgeInsets.only(top: 32.0),
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
+              TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.resolveWith(
+                    (states) => EdgeInsets.only(top: 32.0),
+                  ),
+                  foregroundColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.transparent),
+                ),
                 onPressed: () =>
                     Navigator.pushNamed(context, RegisterScreen.routeName),
                 child: Row(
