@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "320466205625",
+    "project_id": "capyba-challenge",
+    "storage_bucket": "capyba-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320466205625:android:55d995a71b7bb1387d5468",
+        "android_client_info": {
+          "package_name": "com.vsmo.capyba_challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320466205625-leug1839qt9u3dgtofndra0fsc5slf5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiQlTFs3IVr6fcEuqF1-o1rHp_zRkoRQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320466205625-leug1839qt9u3dgtofndra0fsc5slf5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
