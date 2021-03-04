@@ -19,26 +19,26 @@ class RegisterForm extends StatelessWidget {
           hint: "Nome",
           iconData: FeatherIcons.italic,
           inputType: TextInputType.text,
-          onChanged: userFormController.changeName,
+          onChanged: userFormController.onSavedName,
         ),
         CustomInputField(
           hint: "E-mail",
           iconData: FeatherIcons.mail,
           inputType: TextInputType.emailAddress,
-          onChanged: userFormController.changeEmail,
+          onChanged: userFormController.onSavedEmail,
         ),
         CustomInputField(
           hint: "Senha",
           iconData: FeatherIcons.lock,
           inputType: TextInputType.visiblePassword,
-          onChanged: userFormController.changePassword,
+          onChanged: userFormController.onSavedPassword,
         ),
         CustomInputField(
           hint: "Bio",
           iconData: FeatherIcons.italic,
           inputType: TextInputType.text,
           fieldMargin: EdgeInsets.only(bottom: 48.0),
-          onChanged: userFormController.changeBio,
+          onChanged: userFormController.onSavedBio,
         ),
         Container(
           child: Column(

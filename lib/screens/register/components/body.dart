@@ -62,7 +62,7 @@ class Body extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => CameraScreen(
-              changeImage: userFormController.changeAvatar,
+              changeImage: userFormController.onSavedAvatar,
             ),
           ),
         ),

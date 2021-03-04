@@ -40,6 +40,7 @@ class AuthService {
         email: userModel.email,
         password: userModel.password,
       );
+
       User user = authResult.user;
 
       return _userFromFirebaseUser(user);

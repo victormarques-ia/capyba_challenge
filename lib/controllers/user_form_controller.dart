@@ -1,48 +1,93 @@
-import 'dart:collection';
+import 'package:capyba_challenge/components/custtom_bottom_dialog.dart';
+import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/repositories/user/user_repository.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class UserFormController with ChangeNotifier {
   final _user = new UserModel();
-  final _validationItem = new HashMap();
+  final formKey = GlobalKey<FormState>();
+  bool _validate = false;
 
   final AuthService _authService = new AuthService();
   final UserRepository _userRepository = new UserRepository();
 
   UserModel get user => _user;
-  HashMap get validationItem => _validationItem;
+  bool get validate => _validate;
 
-  changeAvatar(String value) {
+  set validate(bool value) {
+    _validate = value;
+    notifyListeners();
+  }
+
+  onSavedAvatar(String value) {
     _user.avatarAddress = value;
     notifyListeners();
   }
 
-  changeName(String value) {
+  onSavedName(String value) {
     _user.name = value;
     notifyListeners();
   }
 
-  changeEmail(String value) {
+  onSavedEmail(String value) {
     _user.email = value;
     notifyListeners();
   }
 
-  changePassword(String value) {
+  onSavedPassword(String value) {
     _user.password = value;
     notifyListeners();
   }
 
-  changeBio(String value) {
+  onSavedBio(String value) {
     _user.bio = value;
     notifyListeners();
   }
 
+  String validateEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = RegExp(pattern);
+
+    if (value.length == 0) {
+      return 'Por favor, preencha o campo com o E-mail.';
+    } else if (!regExp.hasMatch(value)) {
+      return 'E-mail inválido!';
+    } else {
+      return null;
+    }
+  }
+
+  String validatePassword(String value) {
+    if (value.length == 0) {
+      return 'Por favor, preencha o campo com a senha';
+    } else if (value.length < 6) {
+      return 'A senha deve conter mais que 6 caracters.';
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> showCustomDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) => CustomBottomDialog(
+        textMessage: "Login ou senha inválidos.",
+        backgroundColor: kErrorColor,
+        iconMessage: FeatherIcons.alertTriangle,
+      ),
+    );
+  }
+
   login() async {
     try {
-      await _authService.signInWithEmailAndPassword(_user);
+      Future loginResult = await _authService.signInWithEmailAndPassword(_user);
+
+      _validate = loginResult != null;
     } catch (e) {
       print(
         e.toString(),

@@ -9,6 +9,7 @@ ThemeData defaultThemeData(BuildContext context) {
     appBarTheme: appBarTheme,
     splashColor: kDetailsColor.withOpacity(0.3),
     brightness: Brightness.dark,
+    errorColor: kErrorColor,
     highlightColor: Colors.transparent,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: kBackgroundColor.withOpacity(0.05),

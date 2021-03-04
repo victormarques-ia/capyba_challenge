@@ -11,6 +11,7 @@ const kMainColor = Color(0xFF50E961);
 const kDetailsColor = Color(0xFF46CE57);
 const kInactiveColor = Color(0xFFC1C1C1);
 const kTextColor = Color(0xFFFFFFFF);
+const kErrorColor = Color(0xFFDC3545);
 
 const kDefaultRadius = 8.0;
 

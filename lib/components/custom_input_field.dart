@@ -7,6 +7,7 @@ class CustomInputField extends StatelessWidget {
   final TextInputType inputType;
   final EdgeInsets fieldMargin;
   final Function onChanged;
+  final Function validator;
 
   CustomInputField({
     @required this.hint,
@@ -14,6 +15,7 @@ class CustomInputField extends StatelessWidget {
     @required this.inputType,
     @optionalTypeArgs this.fieldMargin,
     @optionalTypeArgs this.onChanged,
+    @optionalTypeArgs this.validator,
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomInputField extends StatelessWidget {
     return Container(
       margin: fieldMargin != null ? fieldMargin : EdgeInsets.only(bottom: 24),
       child: TextFormField(
+        validator: validator,
         onChanged: onChanged,
         cursorColor: Theme.of(context).primaryColor,
         keyboardType: inputType,
