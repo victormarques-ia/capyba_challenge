@@ -1,32 +1,71 @@
-import 'package:capyba_challenge/models/user.dart';
+import 'dart:collection';
+import 'package:capyba_challenge/models/user_model.dart';
+import 'package:capyba_challenge/repositories/user/user_repository.dart';
+import 'package:capyba_challenge/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
-class UserFormController {
-  final user = ValueNotifier<User>(new User());
+class UserFormController with ChangeNotifier {
+  final _user = new UserModel();
+  final _validationItem = new HashMap();
 
-  changeAvatar(String value) => user.value.avatarAddress = value;
+  final AuthService _authService = new AuthService();
+  final UserRepository _userRepository = new UserRepository();
 
-  changeName(String value) => user.value.name = value;
+  UserModel get user => _user;
+  HashMap get validationItem => _validationItem;
 
-  changeEmail(String value) => user.value.email = value;
-
-  changePassword(String value) => user.value.password = value;
-
-  changeBio(String value) => user.value.bio = value;
-
-  login() {
-    print({user.value.email, user.value.password});
+  changeAvatar(String value) {
+    _user.avatarAddress = value;
+    notifyListeners();
   }
 
-  register() {
-    print(
-      {
-        "Avatar": user.value.avatarAddress,
-        "Name": user.value.name,
-        "Email": user.value.email,
-        "Password": user.value.password,
-        "Bio": user.value.bio,
-      },
-    );
+  changeName(String value) {
+    _user.name = value;
+    notifyListeners();
+  }
+
+  changeEmail(String value) {
+    _user.email = value;
+    notifyListeners();
+  }
+
+  changePassword(String value) {
+    _user.password = value;
+    notifyListeners();
+  }
+
+  changeBio(String value) {
+    _user.bio = value;
+    notifyListeners();
+  }
+
+  login() async {
+    try {
+      await _authService.signInWithEmailAndPassword(_user);
+    } catch (e) {
+      print(
+        e.toString(),
+      );
+    }
+  }
+
+  register() async {
+    try {
+      UserModel user = await _authService.registerUser(_user);
+
+      UserModel updatedUser = new UserModel(
+        uid: user.uid,
+        name: _user.name,
+        email: _user.email,
+        avatarAddress: _user.avatarAddress,
+        bio: _user.bio,
+        activated: user.activated,
+      );
+
+      user = await _userRepository.updateUserData(updatedUser);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

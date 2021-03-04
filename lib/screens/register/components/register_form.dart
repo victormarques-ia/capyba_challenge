@@ -46,7 +46,7 @@ class RegisterForm extends StatelessWidget {
               RoundedButton(
                 text: "Cadastrar",
                 color: Theme.of(context).primaryColor,
-                onPress: () {
+                onPress: () async {
                   userFormController.register();
                 },
               ),

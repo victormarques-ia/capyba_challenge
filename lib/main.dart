@@ -1,22 +1,40 @@
 import 'package:capyba_challenge/routes.dart';
-import 'package:capyba_challenge/screens/login/login_screen.dart';
+import 'package:capyba_challenge/services/auth_service.dart';
+import 'package:capyba_challenge/wrapper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:capyba_challenge/global/styles/theme.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+import 'controllers/user_form_controller.dart';
+import 'models/user_model.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Capyba Challenge',
-      debugShowCheckedModeBanner: false,
-      theme: defaultThemeData(context),
-      darkTheme: defaultThemeData(context),
-      initialRoute: LoginScreen.routeName,
-      routes: routes,
+    return MultiProvider(
+      providers: [
+        StreamProvider<UserModel>.value(
+          value: AuthService().user,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserFormController(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Capyba Challenge',
+        debugShowCheckedModeBanner: false,
+        theme: defaultThemeData(context),
+        darkTheme: defaultThemeData(context),
+        home: Wrapper(),
+        routes: routes,
+      ),
     );
   }
 }

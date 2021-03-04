@@ -15,10 +15,12 @@ class UserAvatar extends StatelessWidget {
         radius: 72.0,
         backgroundColor: Theme.of(context).primaryColor,
         backgroundImage: userAvatarImage != null
-            ? Image.file(
+            ? FileImage(
                 new File(userAvatarImage),
               )
-            : NetworkImage("https://www.w3schools.com/howto/img_avatar.png"),
+            : NetworkImage(
+                "https://www.w3schools.com/howto/img_avatar.png",
+              ),
       ),
     );
   }

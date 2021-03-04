@@ -1,21 +1,21 @@
 // ignore_for_file: unnecessary_getters_setters
-class User {
+class UserModel {
   String _uid;
   String _name;
   String _email;
   String _password;
   String _avatarAddress;
   String _bio;
-  String _activated;
+  bool _activated;
 
-  User(
+  UserModel(
       {String uid,
       String name,
       String email,
       String password,
       String avatarAddress,
       String bio,
-      String activated}) {
+      bool activated}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
@@ -37,10 +37,10 @@ class User {
   set avatarAddress(String avatarAddress) => _avatarAddress = avatarAddress;
   String get bio => _bio;
   set bio(String bio) => _bio = bio;
-  String get activated => _activated;
-  set activated(String activated) => _activated = activated;
+  bool get activated => _activated;
+  set activated(bool activated) => _activated = activated;
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];
     _name = json['name'];
     _email = json['email'];

@@ -4,12 +4,15 @@ import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/screens/camera/camera_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
+import '../../../controllers/user_form_controller.dart';
 import 'register_form.dart';
 
 class Body extends StatelessWidget {
-  final userFormController = UserFormController();
   @override
   Widget build(BuildContext context) {
+    final userFormController = Provider.of<UserFormController>(context);
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
@@ -26,13 +29,10 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 30.0),
               child: Stack(
                 children: [
-                  ValueListenableBuilder(
-                    valueListenable: userFormController.user,
-                    builder: (context, value, child) {
-                      return UserAvatar(userAvatarImage: value.avatarAddress);
-                    },
+                  UserAvatar(
+                    userAvatarImage: userFormController.user.avatarAddress,
                   ),
-                  cameraWidget(context),
+                  cameraWidget(context, userFormController),
                 ],
               ),
             ),
@@ -47,11 +47,15 @@ class Body extends StatelessWidget {
     );
   }
 
-  Positioned cameraWidget(BuildContext context) {
+  Positioned cameraWidget(
+    BuildContext context,
+    UserFormController userFormController,
+  ) {
     return new Positioned(
       bottom: 8.0,
       right: 0.0,
       child: InkWell(
+        splashColor: Colors.transparent,
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(

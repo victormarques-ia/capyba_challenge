@@ -5,17 +5,12 @@ import 'package:capyba_challenge/screens/main_navigation.dart';
 import 'package:capyba_challenge/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
-class LoginForm extends StatefulWidget {
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  final userFormController = UserFormController();
-
+class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userFormController = Provider.of<UserFormController>(context);
     return ListView(
       children: [
         CustomInputField(
@@ -56,7 +51,7 @@ class _LoginFormState extends State<LoginForm> {
               RoundedButton(
                   text: "Entrar",
                   color: Theme.of(context).primaryColor,
-                  onPress: () {
+                  onPress: () async {
                     userFormController.login();
                     Navigator.pushNamed(context, MainNavigation.routeName);
                   }),
