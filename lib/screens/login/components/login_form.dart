@@ -1,6 +1,7 @@
 import 'package:capyba_challenge/components/custom_input_field.dart';
 import 'package:capyba_challenge/components/rounded_button.dart';
 import 'package:capyba_challenge/controllers/user_form_controller.dart';
+import 'package:capyba_challenge/screens/main_navigation.dart';
 import 'package:capyba_challenge/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -53,6 +54,7 @@ class _LoginFormState extends State<LoginForm> {
                   color: Theme.of(context).primaryColor,
                   onPress: () {
                     userFormController.login();
+                    Navigator.pushNamed(context, MainNavigation.routeName);
                   }),
               FlatButton(
                 padding: EdgeInsets.only(top: 32.0),

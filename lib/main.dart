@@ -1,6 +1,6 @@
 import 'package:capyba_challenge/routes.dart';
+import 'package:capyba_challenge/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:capyba_challenge/screens/welcome/welcome_screen.dart';
 import 'package:capyba_challenge/global/styles/theme.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: defaultThemeData(context),
       darkTheme: defaultThemeData(context),
-      initialRoute: WelcomeScreen.routeName,
+      initialRoute: LoginScreen.routeName,
       routes: routes,
     );
   }
