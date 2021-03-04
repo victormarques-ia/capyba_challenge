@@ -16,7 +16,6 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: Transform.translate(
         offset: Offset(-8, 0),
         child: IconButton(
-          splashRadius: 1.0,
           icon: Icon(
             FeatherIcons.chevronLeft,
             color: Theme.of(context).primaryColor,

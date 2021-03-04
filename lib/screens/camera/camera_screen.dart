@@ -118,15 +118,15 @@ class _ImageCaptureState extends State<ImageCapture> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          FlatButton(
-                            child: Icon(
+                          IconButton(
+                            icon: Icon(
                               FeatherIcons.crop,
                               color: Theme.of(context).primaryColor,
                             ),
                             onPressed: _cropImage,
                           ),
-                          FlatButton(
-                            child: Icon(FeatherIcons.delete, color: kTextColor),
+                          IconButton(
+                            icon: Icon(FeatherIcons.delete, color: kTextColor),
                             onPressed: _clear,
                           ),
                         ],
