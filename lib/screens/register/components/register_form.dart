@@ -54,9 +54,10 @@ class RegisterForm extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   onPress: () async {
                     if (userFormController.user.avatarAddress == null) {
-                      await userFormController.showCustomDialogImage(context);
+                      await userFormController.showCustomDialogImage(
+                          context, "É necessário adicionar uma imagem.");
                     } else {
-                      await userFormController.register();
+                      await userFormController.register(context);
                       if (!userFormController.validate) {
                         await userFormController
                             .showCustomDialogRegister(context);

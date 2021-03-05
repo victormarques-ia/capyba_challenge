@@ -3,6 +3,7 @@ import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/repositories/user/user_repository.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
+import 'package:capyba_challenge/services/image_service.dart';
 import 'package:capyba_challenge/utils/custom_show_bottom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +16,7 @@ class UserFormController with ChangeNotifier {
   bool _validate = false;
 
   final AuthService _authService = new AuthService();
+  final ImageService _imageService = new ImageService();
   final UserRepository _userRepository = new UserRepository();
 
   UserModel get user => _user;
@@ -109,11 +111,12 @@ class UserFormController with ChangeNotifier {
     );
   }
 
-  Future<void> showCustomDialogImage(BuildContext context) async {
+  Future<void> showCustomDialogImage(
+      BuildContext context, @optionalTypeArgs String messageText) async {
     return customShowBottomDialog(
       context,
       CustomBottomDialog(
-        textMessage: "É necessário adicionar uma imagem.",
+        textMessage: messageText != null ? messageText : "Erro na imagem",
         backgroundColor: kErrorColor,
         iconMessage: FeatherIcons.alertTriangle,
         labelDialog: "AvatarImage",
@@ -124,7 +127,8 @@ class UserFormController with ChangeNotifier {
 
   login() async {
     try {
-      Future loginResult = await _authService.signInWithEmailAndPassword(_user);
+      UserModel loginResult =
+          await _authService.signInWithEmailAndPassword(_user);
 
       _validate = loginResult != null;
     } catch (e) {
@@ -134,22 +138,25 @@ class UserFormController with ChangeNotifier {
     }
   }
 
-  register() async {
+  register(BuildContext context) async {
     try {
       UserModel user = await _authService.registerUser(_user);
 
       _validate = user != null;
 
+      String avatarUrl =
+          await _imageService.uploadAvatarImage(_user.avatarAddress, user.uid);
+
       UserModel updatedUser = new UserModel(
         uid: user.uid,
         name: _user.name,
         email: _user.email,
-        avatarAddress: _user.avatarAddress,
+        avatarAddress: avatarUrl,
         bio: _user.bio,
         activated: user.activated,
       );
-
       user = await _userRepository.updateUserData(updatedUser);
+      return user;
     } catch (e) {
       print(e.toString());
     }

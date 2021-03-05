@@ -44,7 +44,6 @@ class UserModel {
     _uid = json['uid'];
     _name = json['name'];
     _email = json['email'];
-    _password = json['password'];
     _avatarAddress = json['avatar_address'];
     _bio = json['bio'];
     _activated = json['activated'];
@@ -55,7 +54,6 @@ class UserModel {
     data['uid'] = this._uid;
     data['name'] = this._name;
     data['email'] = this._email;
-    data['password'] = this._password;
     data['avatar_address'] = this._avatarAddress;
     data['bio'] = this._bio;
     data['activated'] = this._activated;
