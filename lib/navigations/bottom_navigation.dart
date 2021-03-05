@@ -1,4 +1,5 @@
 import 'package:capyba_challenge/components/bottom_navigation_item.dart';
+import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
 import 'package:capyba_challenge/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -48,28 +49,40 @@ class _BottomNavigationState extends State<BottomNavigation> {
         child: currentWidgetView,
       ),
       bottomNavigationBar: Container(
-        height: 64,
-        color: Theme.of(context).backgroundColor.withOpacity(0.05),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            BottomNavigationItem(
-              iconData: FeatherIcons.home,
-              text: "Home",
-              selected: bottomNavigationItemStatus[0],
-              onPress: () {
-                setCurrentWidgetView(0);
-              },
-            ),
-            BottomNavigationItem(
-              iconData: FeatherIcons.shield,
-              text: "Restrito",
-              selected: bottomNavigationItemStatus[1],
-              onPress: () {
-                setCurrentWidgetView(1);
-              },
-            ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              blurRadius: 4.0,
+              spreadRadius: 0.0,
+              offset: Offset(2.0, 2.0),
+            )
           ],
+        ),
+        child: Container(
+          height: 64.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              BottomNavigationItem(
+                iconData: FeatherIcons.home,
+                text: "Home",
+                selected: bottomNavigationItemStatus[0],
+                onPress: () {
+                  setCurrentWidgetView(0);
+                },
+              ),
+              BottomNavigationItem(
+                iconData: FeatherIcons.shield,
+                text: "Restrito",
+                selected: bottomNavigationItemStatus[1],
+                onPress: () {
+                  setCurrentWidgetView(1);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             icon: Icon(
               appBarIcon != null ? appBarIcon : FeatherIcons.chevronLeft,
               color: Theme.of(context).primaryColor,
-              size: 34.0,
+              size: appBarIcon != null ? 28.0 : 34.0,
             ),
             onPressed: () {
               if (drawerKey != null) {
