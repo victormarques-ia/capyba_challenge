@@ -1,5 +1,4 @@
 import 'package:capyba_challenge/components/bottom_navigation_item.dart';
-import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
 import 'package:capyba_challenge/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';

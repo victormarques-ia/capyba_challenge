@@ -21,25 +21,26 @@ class BottomNavigationItem extends StatelessWidget {
         onPress();
       },
       child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            iconData,
-            color: selected
-                ? Theme.of(context).primaryColor
-                : kInactiveColor.withOpacity(0.5),
-            size: 24,
-          ),
-          Text(
-            text,
-            style: selected
-                ? InactiveTextTextStyle
-                : InactiveTextTextStyle.copyWith(
-                    color: kInactiveColor.withOpacity(0.5)),
-          ),
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              iconData,
+              color: selected
+                  ? Theme.of(context).primaryColor
+                  : kInactiveColor.withOpacity(0.5),
+              size: 24,
+            ),
+            Text(
+              text,
+              style: selected
+                  ? InactiveTextTextStyle
+                  : InactiveTextTextStyle.copyWith(
+                      color: kInactiveColor.withOpacity(0.5)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
