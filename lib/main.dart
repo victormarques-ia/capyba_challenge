@@ -1,4 +1,4 @@
-import 'package:capyba_challenge/routes.dart';
+import 'package:capyba_challenge/navigations/routes.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:capyba_challenge/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';

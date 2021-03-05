@@ -1,16 +1,16 @@
 import 'package:capyba_challenge/components/bottom_navigation_item.dart';
-import 'package:capyba_challenge/screens/register/register_screen.dart';
+import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
 import 'package:capyba_challenge/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-class MainNavigation extends StatefulWidget {
+class BottomNavigation extends StatefulWidget {
   static String routeName = "/main";
   @override
-  _MainNavigationState createState() => _MainNavigationState();
+  _BottomNavigationState createState() => _BottomNavigationState();
 }
 
-class _MainNavigationState extends State<MainNavigation> {
+class _BottomNavigationState extends State<BottomNavigation> {
   List<bool> bottomNavigationItemStatus = [true, false];
 
   Widget currentWidgetView;
@@ -30,7 +30,7 @@ class _MainNavigationState extends State<MainNavigation> {
           currentWidgetView = WelcomeScreen();
           break;
         case 1:
-          currentWidgetView = RegisterScreen();
+          currentWidgetView = RestrictedScreen();
           break;
       }
       bottomNavigationItemStatus = [

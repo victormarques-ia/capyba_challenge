@@ -7,6 +7,8 @@ ThemeData defaultThemeData(BuildContext context) {
     primaryColor: kMainColor,
     scaffoldBackgroundColor: kBackgroundColor,
     appBarTheme: appBarTheme,
+    canvasColor: kBackgroundColor,
+    backgroundColor: kBackgroundColor,
     splashColor: kDetailsColor.withOpacity(0.3),
     brightness: Brightness.dark,
     errorColor: kErrorColor,

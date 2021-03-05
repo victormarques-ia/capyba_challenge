@@ -1,4 +1,4 @@
-import 'package:capyba_challenge/components/custtom_bottom_dialog.dart';
+import 'package:capyba_challenge/components/custom_bottom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
 

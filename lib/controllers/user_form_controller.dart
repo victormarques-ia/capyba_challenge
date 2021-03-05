@@ -1,4 +1,4 @@
-import 'package:capyba_challenge/components/custtom_bottom_dialog.dart';
+import 'package:capyba_challenge/components/custom_bottom_dialog.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/repositories/user/user_repository.dart';
