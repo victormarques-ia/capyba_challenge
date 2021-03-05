@@ -1,8 +1,7 @@
-import 'package:capyba_challenge/components/bottom_navigation_item.dart';
+import 'package:capyba_challenge/components/custom_bottom_navigation_bar.dart';
 import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
 import 'package:capyba_challenge/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class BottomNavigation extends StatefulWidget {
   static String routeName = "/main";
@@ -11,9 +10,8 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  List<bool> bottomNavigationItemStatus = [true, false];
-
   Widget currentWidgetView;
+  int bottomIndex = 0;
 
   @override
   void initState() {
@@ -25,6 +23,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   setCurrentWidgetView(int index) {
     setState(() {
+      bottomIndex = index;
       switch (index) {
         case 0:
           currentWidgetView = WelcomeScreen();
@@ -32,11 +31,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
         case 1:
           currentWidgetView = RestrictedScreen();
           break;
+        default:
       }
-      bottomNavigationItemStatus = [
-        index == 0,
-        index == 1,
-      ];
     });
   }
 
@@ -45,45 +41,20 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return Scaffold(
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 250),
-        child: currentWidgetView,
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              blurRadius: 4.0,
-              spreadRadius: 0.0,
-              offset: Offset(2.0, 2.0),
-            )
-          ],
-        ),
-        child: Container(
-          height: 64.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              BottomNavigationItem(
-                iconData: FeatherIcons.home,
-                text: "Home",
-                selected: bottomNavigationItemStatus[0],
-                onPress: () {
-                  setCurrentWidgetView(0);
-                },
-              ),
-              BottomNavigationItem(
-                iconData: FeatherIcons.shield,
-                text: "Restrito",
-                selected: bottomNavigationItemStatus[1],
-                onPress: () {
-                  setCurrentWidgetView(1);
-                },
-              ),
-            ],
-          ),
+        child: Builder(
+          builder: (context) {
+            return currentWidgetView;
+          },
         ),
       ),
+      bottomNavigationBar: buildBottomBar(),
+    );
+  }
+
+  Widget buildBottomBar() {
+    return CustomBottomNavigationBar(
+      selectedIndex: bottomIndex,
+      setIndex: setCurrentWidgetView,
     );
   }
 }
