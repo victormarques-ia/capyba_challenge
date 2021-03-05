@@ -10,22 +10,32 @@ import 'package:image_picker/image_picker.dart';
 
 class CameraScreen extends StatelessWidget {
   final Function changeImage;
+  final Function navigationFunction;
 
-  const CameraScreen({Key key, this.changeImage}) : super(key: key);
+  const CameraScreen({Key key, this.changeImage, this.navigationFunction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: ImageCapture(changeImage: changeImage),
+      body: ImageCapture(
+        changeImage: changeImage,
+        navigationFunction: navigationFunction,
+      ),
     );
   }
 }
 
 class ImageCapture extends StatefulWidget {
   final Function changeImage;
+  final Function navigationFunction;
 
-  ImageCapture({Key key, @required this.changeImage}) : super(key: key);
+  ImageCapture({
+    Key key,
+    @required this.changeImage,
+    this.navigationFunction,
+  }) : super(key: key);
 
   createState() => _ImageCaptureState();
 }
@@ -140,7 +150,9 @@ class _ImageCaptureState extends State<ImageCapture> {
                         color: Theme.of(context).primaryColor,
                         onPress: () {
                           widget.changeImage(_imageFile.path);
-                          Navigator.pop(context);
+                          widget.navigationFunction != null
+                              ? widget.navigationFunction()
+                              : Navigator.pop(context);
                         },
                       ),
                     )
