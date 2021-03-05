@@ -8,8 +8,8 @@ class Body extends StatelessWidget {
     return SafeArea(
       child: Center(
         child: HeaderScreenItem(
-          titleHeaderItem: "Nova publicação",
-          onClick: () => print("Nova publicação"),
+          titleHeaderItem: "Nova publicação na Home",
+          onClick: () => print("Nova publicação na Home"),
           bottomLine: true,
           iconHeaderItem: FeatherIcons.plus,
         ),

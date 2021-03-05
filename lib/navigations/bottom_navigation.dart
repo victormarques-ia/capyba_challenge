@@ -1,6 +1,6 @@
 import 'package:capyba_challenge/components/custom_bottom_navigation_bar.dart';
+import 'package:capyba_challenge/screens/home/home_Screen.dart';
 import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
-import 'package:capyba_challenge/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -17,7 +17,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   void initState() {
     super.initState();
     setState(() {
-      currentWidgetView = WelcomeScreen();
+      currentWidgetView = HomeScreen();
     });
   }
 
@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottomIndex = index;
       switch (index) {
         case 0:
-          currentWidgetView = WelcomeScreen();
+          currentWidgetView = HomeScreen();
           break;
         case 1:
           currentWidgetView = RestrictedScreen();

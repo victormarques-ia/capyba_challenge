@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const TitleTextSize = 32.0;
 const SubTitleTextSize = 24.0;
+const MediumTextSize = 20.0;
 const InputTextSize = 18.0;
 const TextSize = 16.0;
 const InactiveTextSize = 12.0;
@@ -23,6 +24,11 @@ const TitleTextStyle = TextStyle(
 const SubTitleTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
   fontSize: SubTitleTextSize,
+);
+
+const MediumTextStyle = TextStyle(
+  fontWeight: FontWeight.w500,
+  fontSize: MediumTextSize,
 );
 
 const InputTextStyle = TextStyle(

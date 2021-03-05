@@ -1,14 +1,16 @@
 import 'package:capyba_challenge/components/profile_item.dart';
+import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'drawer_navigation_item.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final AuthService _authService = new AuthService();
   final Function setIndex;
   final int selectedIndex;
 
-  const CustomDrawer({
+  CustomDrawer({
     Key key,
     this.setIndex,
     this.selectedIndex,
@@ -102,7 +104,7 @@ class CustomDrawer extends StatelessWidget {
                 drawerContext: context,
                 itemIcon: FeatherIcons.logOut,
                 itemText: "Sair da conta",
-                onClick: () => print("Saiu"),
+                onClick: () async => _authService.signOut(),
               ),
             ),
           ],
