@@ -11,6 +11,7 @@ ThemeData defaultThemeData(BuildContext context) {
     backgroundColor: kBackgroundColor,
     splashColor: kDetailsColor.withOpacity(0.3),
     brightness: Brightness.dark,
+    unselectedWidgetColor: kMainColor,
     errorColor: kErrorColor,
     highlightColor: Colors.transparent,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

@@ -1,4 +1,4 @@
-import 'package:capyba_challenge/controllers/new_publication_controller.dart';
+import 'package:capyba_challenge/controllers/publication_controller.dart';
 import 'package:capyba_challenge/navigations/routes.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:capyba_challenge/wrapper.dart';
@@ -25,10 +25,7 @@ class MyApp extends StatelessWidget {
           value: AuthService().user,
         ),
         ChangeNotifierProvider(
-          create: (context) => UserFormController(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => NewPublicationController(),
+          create: (context) => PublicationController(),
         ),
       ],
       child: MaterialApp(

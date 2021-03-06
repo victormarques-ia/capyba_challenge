@@ -19,6 +19,10 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
+  Future<UserModel> getCurrentUser() async {
+    return _userFromFirebaseUser(_auth.currentUser);
+  }
+
   Future<UserModel> registerUser(UserModel userModel) async {
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(

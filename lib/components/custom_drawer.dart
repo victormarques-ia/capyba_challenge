@@ -104,7 +104,7 @@ class CustomDrawer extends StatelessWidget {
                 drawerContext: context,
                 itemIcon: FeatherIcons.logOut,
                 itemText: "Sair da conta",
-                onClick: () async => _authService.signOut(),
+                onClick: () async => await _authService.signOut(),
               ),
             ),
           ],

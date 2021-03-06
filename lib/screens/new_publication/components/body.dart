@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:capyba_challenge/components/custom_input_field.dart';
 import 'package:capyba_challenge/components/rounded_button.dart';
+import 'package:capyba_challenge/controllers/publication_controller.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
+import 'package:capyba_challenge/navigations/drawer_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final publicationController = Provider.of<PublicationController>(context);
     return SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 16.0),
@@ -14,9 +20,15 @@ class Body extends StatelessWidget {
           children: [
             Column(
               children: [
-                Image(
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8dmlld3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"),
+                SizedBox(
+                  height: 300.0,
+                  child: Image(
+                    image: FileImage(
+                      new File(
+                        publicationController.publication.imageAddress,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 38.0,
@@ -25,16 +37,20 @@ class Body extends StatelessWidget {
                   hint: "Descrição",
                   iconData: FeatherIcons.italic,
                   inputType: TextInputType.text,
+                  onChanged: publicationController.onSavedDescription,
                 ),
                 Row(
                   children: [
                     Transform.translate(
                       offset: Offset(-14, 0),
                       child: Checkbox(
-                        value: true,
+                        value: publicationController.publication.public != null
+                            ? publicationController.publication.public
+                            : false,
                         checkColor: Theme.of(context).primaryColor,
+                        activeColor: kInactiveColor.withOpacity(0.1),
                         onChanged: (bool value) {
-                          print(value);
+                          publicationController.onSavedPublicOption(value);
                         },
                       ),
                     ),
@@ -50,7 +66,21 @@ class Body extends StatelessWidget {
                 RoundedButton(
                   text: "Salvar",
                   color: Theme.of(context).primaryColor,
-                  onPress: () => print("SALVOU"),
+                  onPress: () async {
+                    final result =
+                        await publicationController.createPublication();
+                    if (result != null) {
+                      await publicationController
+                          .showCustomDialogPublicationSuccess(context)
+                          .then(
+                            (value) => Navigator.of(context)
+                                .pushNamed(DrawerNavigation.routeName),
+                          );
+                    } else {
+                      await publicationController
+                          .showCustomDialogPublicationError(context);
+                    }
+                  },
                 )
               ],
             )

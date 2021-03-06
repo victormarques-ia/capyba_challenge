@@ -24,7 +24,7 @@ class CustomBottomDialog extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 40.0),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16.0),
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
               Radius.circular(6.0),

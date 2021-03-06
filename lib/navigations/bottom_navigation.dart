@@ -4,7 +4,7 @@ import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
-  static String routeName = "/main";
+  static String routeName = "/bottom_navigation";
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }

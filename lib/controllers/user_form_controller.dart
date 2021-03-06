@@ -5,6 +5,7 @@ import 'package:capyba_challenge/repositories/user/user_repository.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:capyba_challenge/services/image_service.dart';
 import 'package:capyba_challenge/utils/custom_show_bottom_dialog.dart';
+import 'package:capyba_challenge/utils/upload_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -138,14 +139,14 @@ class UserFormController with ChangeNotifier {
     }
   }
 
-  register(BuildContext context) async {
+  register() async {
     try {
       UserModel user = await _authService.registerUser(_user);
 
       _validate = user != null;
 
-      String avatarUrl =
-          await _imageService.uploadAvatarImage(_user.avatarAddress, user.uid);
+      String avatarUrl = await _imageService.uploadImage(
+          _user.avatarAddress, user.uid, UploadTypes.avatar);
 
       UserModel updatedUser = new UserModel(
         uid: user.uid,
@@ -155,8 +156,8 @@ class UserFormController with ChangeNotifier {
         bio: _user.bio,
         activated: user.activated,
       );
-      user = await _userRepository.updateUserData(updatedUser);
-      return user;
+      bool result = await _userRepository.updateUserData(updatedUser);
+      return result;
     } catch (e) {
       print(e.toString());
     }

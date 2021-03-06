@@ -3,16 +3,12 @@ import 'package:capyba_challenge/components/rounded_button.dart';
 import 'package:capyba_challenge/controllers/user_form_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 class RegisterForm extends StatelessWidget {
-  final UserFormController userFormController;
-
-  RegisterForm({
-    @required this.userFormController,
-  });
-
   @override
   Widget build(BuildContext context) {
+    final userFormController = Provider.of<UserFormController>(context);
     return Form(
       key: userFormController.registerForm,
       autovalidateMode: AutovalidateMode.always,
@@ -57,7 +53,7 @@ class RegisterForm extends StatelessWidget {
                       await userFormController.showCustomDialogImage(
                           context, "É necessário adicionar uma imagem.");
                     } else {
-                      await userFormController.register(context);
+                      await userFormController.register();
                       if (!userFormController.validate) {
                         await userFormController
                             .showCustomDialogRegister(context);

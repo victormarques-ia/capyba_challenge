@@ -38,9 +38,7 @@ class Body extends StatelessWidget {
                     ],
                   ),
                 ),
-                RegisterForm(
-                  userFormController: userFormController,
-                )
+                RegisterForm()
               ],
             ),
           ),
