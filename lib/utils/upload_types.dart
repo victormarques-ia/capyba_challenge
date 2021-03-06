@@ -1,0 +1,1 @@
+enum UploadTypes { avatar, publication }
