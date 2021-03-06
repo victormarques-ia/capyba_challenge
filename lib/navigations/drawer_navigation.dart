@@ -1,6 +1,7 @@
 import 'package:capyba_challenge/components/custom_app_bar.dart';
 import 'package:capyba_challenge/components/custom_drawer.dart';
 import 'package:capyba_challenge/screens/confirm_account/confirm_account_screen.dart';
+import 'package:capyba_challenge/screens/profile/profile_screen.dart';
 import 'package:capyba_challenge/screens/profile_configurations/profile_configurations_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -40,7 +41,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
           currentWidgetView = ConfirmAccountScreen();
           break;
         case 3:
-          currentWidgetView = Text("Minhas publicações");
+          currentWidgetView = ProfileScreen();
           break;
         default:
       }

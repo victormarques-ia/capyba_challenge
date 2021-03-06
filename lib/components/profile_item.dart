@@ -6,12 +6,20 @@ class ProfileItem extends StatelessWidget {
   final Function onClick;
   final String title;
   final String subTitle;
+  final double radiusAvatar;
+  final double paddingTopTitles;
+  final TextStyle titleTextStyle;
+  final TextStyle subTitleTextStyle;
 
   const ProfileItem({
     Key key,
     this.onClick,
     @required this.title,
     @required this.subTitle,
+    @optionalTypeArgs this.radiusAvatar,
+    @optionalTypeArgs this.paddingTopTitles,
+    @optionalTypeArgs this.titleTextStyle,
+    @optionalTypeArgs this.subTitleTextStyle,
   }) : super(key: key);
 
   @override
@@ -21,26 +29,39 @@ class ProfileItem extends StatelessWidget {
       child: Row(
         children: [
           UserAvatar(
-            radius: 24.0,
+            radius: radiusAvatar != null ? radiusAvatar : 24.0,
           ),
           SizedBox(
             width: 16.0,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: TextTextStyle,
-              ),
-              Text(
-                subTitle,
-                style: InactiveTextTextStyle.copyWith(
-                  color: kInactiveColor,
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style:
+                      titleTextStyle != null ? titleTextStyle : TextTextStyle,
                 ),
-              )
-            ],
+                SizedBox(
+                  height: paddingTopTitles != null ? paddingTopTitles : null,
+                ),
+                Container(
+                  child: Text(
+                    subTitle,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    style: subTitleTextStyle != null
+                        ? subTitleTextStyle
+                        : InactiveTextTextStyle.copyWith(
+                            color: kInactiveColor,
+                          ),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),
