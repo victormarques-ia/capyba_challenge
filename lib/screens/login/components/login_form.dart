@@ -1,6 +1,7 @@
 import 'package:capyba_challenge/components/custom_input_field.dart';
 import 'package:capyba_challenge/components/rounded_button.dart';
 import 'package:capyba_challenge/controllers/user_form_controller.dart';
+import 'package:capyba_challenge/screens/recover_password/recover_password_screen.dart';
 import 'package:capyba_challenge/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -40,10 +41,13 @@ class LoginForm extends StatelessWidget {
                       padding: MaterialStateProperty.resolveWith(
                         (states) => EdgeInsets.only(top: 12.0, bottom: 24.0),
                       ),
-                      foregroundColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.transparent),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
                     ),
-                    onPressed: () => {},
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      RecoverPasswordScreen.routeName,
+                    ),
                     child: Text(
                       "Esqueceu a senha?",
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -68,8 +72,7 @@ class LoginForm extends StatelessWidget {
                     padding: MaterialStateProperty.resolveWith(
                       (states) => EdgeInsets.only(top: 32.0),
                     ),
-                    foregroundColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.transparent),
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
                   ),
                   onPressed: () =>
                       Navigator.pushNamed(context, RegisterScreen.routeName),
