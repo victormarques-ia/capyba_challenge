@@ -40,7 +40,7 @@ class PublicationModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this._uid;
+    //data['uid'] = this._uid;
     data['description'] = this._description;
     data['image_address'] = this._imageAddress;
     data['owner_uid'] = this._ownerUid;
