@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class HeaderScreenItem extends StatelessWidget {
   final IconData iconHeaderItem;
   final String titleHeaderItem;
+  final TextStyle textStyle;
   final Function onClick;
   final bool bottomLine;
 
@@ -12,6 +13,7 @@ class HeaderScreenItem extends StatelessWidget {
     @required this.titleHeaderItem,
     @required this.onClick,
     @optionalTypeArgs this.iconHeaderItem,
+    @optionalTypeArgs this.textStyle,
     @optionalTypeArgs this.bottomLine,
   }) : super(key: key);
   @override
@@ -32,13 +34,13 @@ class HeaderScreenItem extends StatelessWidget {
                   : null,
               Text(
                 titleHeaderItem,
-                style: MediumTextStyle,
+                style: textStyle != null ? textStyle : MediumTextStyle,
               ),
             ],
           ),
           bottomLine != null && bottomLine == true
               ? _buildBottomLine(bottomLine)
-              : null,
+              : Container(),
         ],
       ),
     );
