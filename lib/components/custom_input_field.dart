@@ -6,6 +6,7 @@ class CustomInputField extends StatelessWidget {
   final IconData iconData;
   final TextInputType inputType;
   final EdgeInsets fieldMargin;
+  final bool disableTextField;
   final Function onChanged;
   final Function validator;
 
@@ -14,6 +15,7 @@ class CustomInputField extends StatelessWidget {
     @required this.iconData,
     @required this.inputType,
     @optionalTypeArgs this.fieldMargin,
+    @optionalTypeArgs this.disableTextField,
     @optionalTypeArgs this.onChanged,
     @optionalTypeArgs this.validator,
   });
@@ -23,6 +25,7 @@ class CustomInputField extends StatelessWidget {
     return Container(
       margin: fieldMargin != null ? fieldMargin : EdgeInsets.only(bottom: 24),
       child: TextFormField(
+        enabled: disableTextField != null ? disableTextField : null,
         validator: validator,
         onChanged: onChanged,
         cursorColor: Theme.of(context).primaryColor,

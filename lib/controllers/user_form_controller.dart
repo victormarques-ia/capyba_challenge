@@ -14,6 +14,7 @@ class UserFormController with ChangeNotifier {
   final _user = new UserModel();
   final loginForm = GlobalKey<FormState>();
   final registerForm = GlobalKey<FormState>();
+  final profileConfigurationsForm = GlobalKey<FormState>();
   bool _validate = false;
 
   final AuthService _authService = new AuthService();
@@ -123,6 +124,35 @@ class UserFormController with ChangeNotifier {
         labelDialog: "AvatarImage",
       ),
       "AvatarImage",
+    );
+  }
+
+  Future<void> showCustomDialogProfileConfigurationsError(
+      BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
+        textMessage:
+            "Houve um erro ao tentar alterar as informações, tente novamente.",
+        backgroundColor: kErrorColor,
+        iconMessage: FeatherIcons.alertTriangle,
+        labelDialog: "ProfileConfigurations",
+      ),
+      "ProfileConfigurations",
+    );
+  }
+
+  Future<void> showCustomDialogProfileConfigurationsSuccess(
+      BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
+        textMessage: "Sucesso ao alterar as informações.",
+        backgroundColor: kMainColor,
+        iconMessage: FeatherIcons.check,
+        labelDialog: "ProfileConfigurations",
+      ),
+      "ProfileConfigurations",
     );
   }
 
