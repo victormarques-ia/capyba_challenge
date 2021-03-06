@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:capyba_challenge/global/styles/theme.dart';
 import 'package:provider/provider.dart';
 
-import 'controllers/user_form_controller.dart';
 import 'models/user_model.dart';
 
 void main() async {

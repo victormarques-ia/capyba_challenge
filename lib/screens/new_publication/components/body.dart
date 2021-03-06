@@ -20,12 +20,16 @@ class Body extends StatelessWidget {
           children: [
             Column(
               children: [
-                SizedBox(
-                  height: 300.0,
-                  child: Image(
-                    image: FileImage(
-                      new File(
-                        publicationController.publication.imageAddress,
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 400.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: FileImage(
+                        new File(
+                          publicationController.publication.imageAddress,
+                        ),
                       ),
                     ),
                   ),
@@ -64,7 +68,7 @@ class Body extends StatelessWidget {
                   height: 38.0,
                 ),
                 RoundedButton(
-                  text: "Salvar",
+                  text: "Publicar",
                   color: Theme.of(context).primaryColor,
                   onPress: () async {
                     final result =
