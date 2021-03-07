@@ -62,6 +62,8 @@ class Body extends StatelessWidget {
                                   padding: EdgeInsets.only(bottom: 28.0),
                                   child: Publication(
                                     whoPublished: snapshot.data.user.name,
+                                    whoPublishedImage:
+                                        snapshot.data.user.avatarAddress,
                                     description:
                                         snapshot.data.description != null
                                             ? snapshot.data.description

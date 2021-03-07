@@ -6,6 +6,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class Publication extends StatelessWidget {
   final String whoPublished;
+  final String whoPublishedImage;
   final Function onClickProfile;
   final Function onClickImage;
   final String urlImage;
@@ -17,6 +18,7 @@ class Publication extends StatelessWidget {
     @required this.whoPublished,
     @required this.urlImage,
     @required this.description,
+    @optionalTypeArgs this.whoPublishedImage,
     @optionalTypeArgs this.onClickProfile,
     @optionalTypeArgs this.onClickImage,
     @optionalTypeArgs this.iLiked,
@@ -31,6 +33,7 @@ class Publication extends StatelessWidget {
           splashColor: Colors.transparent,
           child: ProfileItem(
             title: whoPublished != null ? whoPublished : "",
+            avatarImage: whoPublishedImage,
             subTitle: "Ver perfil",
           ),
         ),

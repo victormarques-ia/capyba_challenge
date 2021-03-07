@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:capyba_challenge/components/profile_item.dart';
 import 'package:provider/provider.dart';
 
+import '../../../navigations/screen_arguments/specific_publication_arguments.dart';
+
 class Body extends StatelessWidget {
   final String userUid;
 
@@ -74,7 +76,11 @@ class Body extends StatelessWidget {
 
                           return InkWell(
                             onTap: () => Navigator.pushNamed(
-                                context, SpecificPublicationScreen.routeName),
+                              context,
+                              SpecificPublicationScreen.routeName,
+                              arguments:
+                                  SpecificPublicationArguments(publication.uid),
+                            ),
                             splashColor: Theme.of(context).primaryColor,
                             child: Container(
                               margin: EdgeInsets.symmetric(

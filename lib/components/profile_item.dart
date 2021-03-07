@@ -6,6 +6,7 @@ class ProfileItem extends StatelessWidget {
   final Function onClick;
   final String title;
   final String subTitle;
+  final String avatarImage;
   final double radiusAvatar;
   final double paddingTopTitles;
   final TextStyle titleTextStyle;
@@ -16,6 +17,7 @@ class ProfileItem extends StatelessWidget {
     this.onClick,
     @required this.title,
     @required this.subTitle,
+    @optionalTypeArgs this.avatarImage,
     @optionalTypeArgs this.radiusAvatar,
     @optionalTypeArgs this.paddingTopTitles,
     @optionalTypeArgs this.titleTextStyle,
@@ -30,6 +32,7 @@ class ProfileItem extends StatelessWidget {
         children: [
           UserAvatar(
             radius: radiusAvatar != null ? radiusAvatar : 24.0,
+            urlAvatarImage: avatarImage,
           ),
           SizedBox(
             width: 16.0,

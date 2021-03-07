@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 class UserAvatar extends StatelessWidget {
   final dynamic userAvatarImage;
+  final String urlAvatarImage;
   final double radius;
 
   const UserAvatar({
     Key key,
     @optionalTypeArgs this.userAvatarImage,
+    @optionalTypeArgs this.urlAvatarImage,
     @optionalTypeArgs this.radius,
   }) : super(key: key);
   @override
@@ -20,13 +22,15 @@ class UserAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: radius != null ? radius - 2.0 : 72.0,
         backgroundColor: kBackgroundColor,
-        backgroundImage: userAvatarImage != null
-            ? FileImage(
-                new File(userAvatarImage),
-              )
-            : AssetImage(
-                "assets/images/capyba_simbolo.png",
-              ),
+        backgroundImage: urlAvatarImage != null
+            ? NetworkImage(urlAvatarImage)
+            : userAvatarImage != null
+                ? FileImage(
+                    new File(userAvatarImage),
+                  )
+                : AssetImage(
+                    "assets/images/capyba_simbolo.png",
+                  ),
       ),
     );
   }

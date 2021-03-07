@@ -26,7 +26,6 @@ class UserRepository {
     await _firebaseFirestore
         .collection(_collectionName)
         .where("uid", isEqualTo: userUid)
-        .limit(1)
         .get()
         .then((query) => doc = query.docs[0]);
 

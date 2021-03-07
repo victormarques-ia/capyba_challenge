@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:capyba_challenge/models/user_model.dart';
 
 import '../models/user_model.dart';
+import '../repositories/user/user_repository.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final UserRepository _userRepository = new UserRepository();
 
   UserModel _userFromFirebaseUser(User user) {
     return user != null
@@ -21,6 +23,11 @@ class AuthService {
 
   Future<UserModel> getCurrentUser() async {
     return _userFromFirebaseUser(_auth.currentUser);
+  }
+
+  Future<UserModel> getUserData() async {
+    User firebaseUser = _auth.currentUser;
+    return await _userRepository.getUser(firebaseUser.uid);
   }
 
   Future<UserModel> registerUser(UserModel userModel) async {

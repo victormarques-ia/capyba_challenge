@@ -78,7 +78,7 @@ class UserModel {
       uid: doc['uid'],
       name: doc['name'],
       email: doc['email'],
-      avatarAddress: doc['avatarAddress'],
+      avatarAddress: doc['avatar_address'],
       bio: doc['bio'],
       activated: doc['activated'],
       createdAt: doc['created_at'],

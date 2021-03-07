@@ -36,13 +36,22 @@ class Body extends StatelessWidget {
                         whoPublished:
                             publicationController.specificPublication.user.name,
                         description: publicationController
-                            .specificPublication.description,
+                                    .specificPublication.description !=
+                                null
+                            ? publicationController
+                                .specificPublication.description
+                            : "",
                         urlImage: publicationController
                             .specificPublication.imageAddress,
                       ),
-                      SizedBox(
-                        height: 64.0,
-                      ),
+                      publicationController.specificPublication.description !=
+                              null
+                          ? SizedBox(
+                              height: 64.0,
+                            )
+                          : SizedBox(
+                              height: 24.0,
+                            ),
                       publicationController.specificPublication.ownerUid ==
                               user.uid
                           ? Center(

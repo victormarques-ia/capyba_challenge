@@ -1,14 +1,15 @@
 import 'package:capyba_challenge/components/profile_item.dart';
-import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:provider/provider.dart';
 
+import '../models/user_model.dart';
+import '../services/auth_service.dart';
 import 'drawer_navigation_item.dart';
 
 class CustomDrawer extends StatelessWidget {
   final AuthService _authService = new AuthService();
+  final UserModel userData;
   final Function setIndex;
   final int selectedIndex;
 
@@ -16,11 +17,11 @@ class CustomDrawer extends StatelessWidget {
     Key key,
     this.setIndex,
     this.selectedIndex,
+    this.userData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserModel>(context);
     return Drawer(
       elevation: 2,
       child: Padding(
@@ -32,7 +33,8 @@ class CustomDrawer extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: ProfileItem(
-                    title: "Joao Silva",
+                    title: userData.name,
+                    avatarImage: userData.avatarAddress,
                     subTitle: "Ver perfil",
                     onClick: () {
                       _drawerItemClicked(context, 1);
@@ -78,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
                         },
                         itemSelected: selectedIndex == 0,
                       ),
-                      user.activated != null && !user.activated
+                      userData.activated != null && !userData.activated
                           ? DrawerNavigationItem(
                               drawerContext: context,
                               itemIcon: FeatherIcons.checkSquare,

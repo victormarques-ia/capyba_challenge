@@ -6,6 +6,8 @@ import 'package:capyba_challenge/screens/profile_configurations/profile_configur
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
+import '../models/user_model.dart';
+import '../services/auth_service.dart';
 import 'bottom_navigation.dart';
 
 class DrawerNavigation extends StatefulWidget {
@@ -16,6 +18,7 @@ class DrawerNavigation extends StatefulWidget {
 
 class _DrawerNavigationState extends State<DrawerNavigation> {
   GlobalKey<ScaffoldState> _key = GlobalKey();
+  UserModel _user;
   Widget currentWidgetView;
   int drawerIndex = 0;
 
@@ -23,7 +26,15 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
   void initState() {
     super.initState();
     setState(() {
+      _getUser();
       currentWidgetView = BottomNavigation();
+    });
+  }
+
+  Future<void> _getUser() async {
+    UserModel us = await AuthService().getUserData();
+    setState(() {
+      _user = us;
     });
   }
 
@@ -35,7 +46,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
           currentWidgetView = BottomNavigation();
           break;
         case 1:
-          currentWidgetView = ProfileConfigurationsScreen();
+          currentWidgetView = ProfileConfigurationsScreen(userData: _user);
           break;
         case 2:
           currentWidgetView = ConfirmAccountScreen();
@@ -57,14 +68,16 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
         appBarIcon: FeatherIcons.menu,
         drawerKey: _key,
       ),
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 250),
-        child: Builder(
-          builder: (context) {
-            return currentWidgetView;
-          },
-        ),
-      ),
+      body: _user != null
+          ? AnimatedSwitcher(
+              duration: Duration(milliseconds: 250),
+              child: Builder(
+                builder: (context) {
+                  return currentWidgetView;
+                },
+              ),
+            )
+          : null,
     );
   }
 
@@ -72,6 +85,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
     return CustomDrawer(
       selectedIndex: drawerIndex,
       setIndex: setCurrentWidgetView,
+      userData: _user,
     );
   }
 }
