@@ -54,9 +54,10 @@ class PublicationModel {
 
   factory PublicationModel.fromDocument(DocumentSnapshot snapshot) {
     final doc = snapshot.data();
+
     return PublicationModel(
-      uid: doc['uid'],
-      description: doc['description'] ?? '',
+      uid: snapshot.id,
+      description: doc['description'],
       imageAddress: doc['image_address'],
       ownerUid: doc['owner_uid'],
       public: doc['public'],

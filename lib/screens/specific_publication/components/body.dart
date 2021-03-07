@@ -2,49 +2,71 @@ import 'package:capyba_challenge/components/custom_alert_dialog.dart';
 import 'package:capyba_challenge/components/header_screen_item.dart';
 import 'package:capyba_challenge/components/publication.dart';
 import 'package:capyba_challenge/components/rounded_button.dart';
+import 'package:capyba_challenge/controllers/publication_controller.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
+import 'package:capyba_challenge/models/user_model.dart';
+import 'package:capyba_challenge/navigations/drawer_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
+  final String publicationUid;
+
+  const Body({
+    Key key,
+    @required this.publicationUid,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context);
+    final publicationController = Provider.of<PublicationController>(context);
+
+    publicationController.getSpecificPublication(publicationUid);
+
     return SafeArea(
       child: ListView(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 16.0),
-            child: Column(
-              children: [
-                Publication(
-                  whoPublished: "Joao Silva",
-                  description:
-                      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-                  onClickImage: () => print("Cliquei na imagem"),
-                  onClickProile: () => print("Cliquei no profile"),
-                  urlImage:
-                      "https://images.unsplash.com/photo-1471958680802-1345a694ba6d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8d2F5fGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80",
-                ),
-                SizedBox(
-                  height: 64.0,
-                ),
-                Center(
-                  child: HeaderScreenItem(
-                    titleHeaderItem: "Deletar publicação",
-                    textStyle: TextTextStyle,
-                    iconHeaderItem: FeatherIcons.trash2,
-                    onClick: () => _showDeletePublicationDialog(context),
-                  ),
-                )
-              ],
-            ),
+            child: publicationController.specificPublication != null
+                ? Column(
+                    children: [
+                      Publication(
+                        whoPublished: "Joao Silva",
+                        description: publicationController
+                            .specificPublication.description,
+                        onClickImage: () => print("Cliquei na imagem"),
+                        onClickProile: () => print("Cliquei no profile"),
+                        urlImage: publicationController
+                            .specificPublication.imageAddress,
+                      ),
+                      SizedBox(
+                        height: 64.0,
+                      ),
+                      publicationController.specificPublication.ownerUid ==
+                              user.uid
+                          ? Center(
+                              child: HeaderScreenItem(
+                                titleHeaderItem: "Deletar publicação",
+                                textStyle: TextTextStyle,
+                                iconHeaderItem: FeatherIcons.trash2,
+                                onClick: () => _showDeletePublicationDialog(
+                                    context, publicationController),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  )
+                : Container(),
           ),
         ],
       ),
     );
   }
 
-  _showDeletePublicationDialog(BuildContext context) {
+  _showDeletePublicationDialog(
+      BuildContext context, PublicationController publicationController) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -77,9 +99,25 @@ class Body extends StatelessWidget {
                       height: 32.0,
                       width: 98.0,
                       color: Theme.of(context).primaryColor,
-                      onPress: () {
-                        print("PUBLICAÇÂO DELETADA");
-                        Navigator.of(context).pop();
+                      onPress: () async {
+                        if (await publicationController
+                            .deleteSpecificPublication(
+                                publicationUid,
+                                publicationController
+                                    .specificPublication.imageAddress)) {
+                          await publicationController
+                              .showCustomDialogPublicationDeleteSuccess(
+                            context,
+                          );
+                          Navigator.of(context).pop();
+                          Navigator.pushNamed(
+                              context, DrawerNavigation.routeName);
+                        } else {
+                          await publicationController
+                              .showCustomDialogPublicationDeleteError(
+                            context,
+                          );
+                        }
                       },
                       buttonPadding:
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),

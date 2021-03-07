@@ -44,4 +44,35 @@ class PublicationRepository {
       }).toList();
     });
   }
+
+  Future<PublicationModel> getSpecificPublication(String publicationUid) async {
+    DocumentSnapshot doc;
+    await _firebaseFirestore
+        .collection("publications")
+        .doc(publicationUid)
+        .get()
+        .then((query) {
+      doc = query;
+    });
+
+    return PublicationModel.fromDocument(doc);
+  }
+
+  Future<bool> deleteSpecificPublication(String publicationUid) async {
+    bool result;
+
+    await _firebaseFirestore
+        .collection("publications")
+        .doc(publicationUid)
+        .delete()
+        .then((value) => result = true)
+        .catchError(
+      (error) {
+        result = false;
+        print("Failed to delete publication: $error");
+      },
+    );
+
+    return result;
+  }
 }

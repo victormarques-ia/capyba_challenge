@@ -33,4 +33,18 @@ class ImageService {
     }
     return avatarImageUrl;
   }
+
+  deleteImage(String imageUrl) {
+    try {
+      Reference storageReference = _firebaseStorage.refFromURL(imageUrl);
+
+      storageReference.delete();
+
+      return true;
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return false;
+  }
 }

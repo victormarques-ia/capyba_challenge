@@ -30,7 +30,7 @@ class Publication extends StatelessWidget {
           onTap: onClickProile,
           splashColor: Colors.transparent,
           child: ProfileItem(
-            title: whoPublished,
+            title: whoPublished != null ? whoPublished : "",
             subTitle: "Ver perfil",
           ),
         ),
@@ -46,9 +46,11 @@ class Publication extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                  urlImage,
-                ),
+                image: urlImage != null
+                    ? NetworkImage(
+                        urlImage,
+                      )
+                    : AssetImage("assets/images/capyba_simbolo.png"),
               ),
             ),
           ),
@@ -68,7 +70,7 @@ class Publication extends StatelessWidget {
         Container(
           alignment: Alignment.bottomLeft,
           child: Text(
-            description,
+            description != null ? description : "",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             softWrap: false,

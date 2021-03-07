@@ -12,6 +12,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class PublicationController with ChangeNotifier {
   final _publication = new PublicationModel();
+  PublicationModel _specificPublication = new PublicationModel();
 
   final PublicationRepository _publicationRepository =
       new PublicationRepository();
@@ -19,6 +20,7 @@ class PublicationController with ChangeNotifier {
   final AuthService _authService = new AuthService();
 
   PublicationModel get publication => _publication;
+  PublicationModel get specificPublication => _specificPublication;
 
   Stream<List<PublicationModel>> get allPublications {
     return getAllPublications();
@@ -70,6 +72,34 @@ class PublicationController with ChangeNotifier {
     );
   }
 
+  Future<void> showCustomDialogPublicationDeleteSuccess(
+      BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
+        textMessage: "Sucesso ao deletar publicação!",
+        backgroundColor: kMainColor,
+        iconMessage: FeatherIcons.check,
+        labelDialog: "SpecificPublication",
+      ),
+      "SpecificPublication",
+    );
+  }
+
+  Future<void> showCustomDialogPublicationDeleteError(
+      BuildContext context) async {
+    return customShowBottomDialog(
+      context,
+      CustomBottomDialog(
+        textMessage: "Houve um erro ao deletar publicação, tente novamente.",
+        backgroundColor: kErrorColor,
+        iconMessage: FeatherIcons.alertTriangle,
+        labelDialog: "SpecificPublication",
+      ),
+      "SpecificPublication",
+    );
+  }
+
   createPublication() async {
     try {
       UserModel currentUser = await _authService.getCurrentUser();
@@ -101,6 +131,32 @@ class PublicationController with ChangeNotifier {
   getOnlyPublicPublications() {
     try {
       return _publicationRepository.getOnylPublicPublications();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  getSpecificPublication(String publicationUid) async {
+    try {
+      _specificPublication =
+          await _publicationRepository.getSpecificPublication(publicationUid);
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  deleteSpecificPublication(
+      String publicationUid, String publicationImageUrl) async {
+    try {
+      final publicationDeleted = await _publicationRepository
+          .deleteSpecificPublication(publicationUid);
+      if (publicationDeleted) {
+        final imageDeleted = _imageService.deleteImage(publicationImageUrl);
+        return imageDeleted;
+      } else {
+        return false;
+      }
     } catch (e) {
       print(e.toString());
     }

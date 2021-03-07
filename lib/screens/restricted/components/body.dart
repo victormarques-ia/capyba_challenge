@@ -2,6 +2,7 @@ import 'package:capyba_challenge/components/header_screen_item.dart';
 import 'package:capyba_challenge/components/publication.dart';
 import 'package:capyba_challenge/controllers/publication_controller.dart';
 import 'package:capyba_challenge/models/publication_model.dart';
+import 'package:capyba_challenge/navigations/screen_arguments/specific_publication_arguments.dart';
 import 'package:capyba_challenge/screens/camera/camera_screen.dart';
 import 'package:capyba_challenge/screens/new_publication/new_publication_screen.dart';
 import 'package:capyba_challenge/screens/specific_publication/specific_publication_screen.dart';
@@ -58,6 +59,9 @@ class Body extends StatelessWidget {
                               onClickImage: () => Navigator.pushNamed(
                                 context,
                                 SpecificPublicationScreen.routeName,
+                                arguments: SpecificPublicationArguments(
+                                  publication.uid,
+                                ),
                               ),
                               onClickProile: () => print("Cliquei no profile"),
                               urlImage: publication.imageAddress,
