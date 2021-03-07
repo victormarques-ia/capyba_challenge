@@ -9,6 +9,9 @@ class UserRepository {
 
     CollectionReference users = _firebaseFirestore.collection("users");
 
+    userModel.createdAt = Timestamp.now();
+    userModel.updatedAt = Timestamp.now();
+
     await users
         .add(
           userModel.toJson(),

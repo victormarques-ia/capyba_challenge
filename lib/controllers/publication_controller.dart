@@ -20,6 +20,14 @@ class PublicationController with ChangeNotifier {
 
   PublicationModel get publication => _publication;
 
+  Stream<List<PublicationModel>> get allPublications {
+    return getAllPublications();
+  }
+
+  Stream<List<PublicationModel>> get onlyPublicPublications {
+    return getOnlyPublicPublications();
+  }
+
   onSavedDescription(String value) {
     _publication.description = value;
     notifyListeners();
@@ -77,6 +85,22 @@ class PublicationController with ChangeNotifier {
           await _publicationRepository.createPublication(_publication);
 
       return result;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  getAllPublications() {
+    try {
+      return _publicationRepository.getAllPublications();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  getOnlyPublicPublications() {
+    try {
+      return _publicationRepository.getOnylPublicPublications();
     } catch (e) {
       print(e.toString());
     }

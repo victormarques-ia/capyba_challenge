@@ -66,6 +66,7 @@ class Publication extends StatelessWidget {
           height: 8.0,
         ),
         Container(
+          alignment: Alignment.bottomLeft,
           child: Text(
             description,
             maxLines: 2,

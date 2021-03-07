@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_getters_setters
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   String _uid;
   String _name;
@@ -7,6 +9,8 @@ class UserModel {
   String _avatarAddress;
   String _bio;
   bool _activated;
+  Timestamp _createdAt;
+  Timestamp _updatedAt;
 
   UserModel(
       {String uid,
@@ -15,7 +19,9 @@ class UserModel {
       String password,
       String avatarAddress,
       String bio,
-      bool activated}) {
+      bool activated,
+      Timestamp createdAt,
+      Timestamp updatedAt}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
@@ -23,6 +29,8 @@ class UserModel {
     this._avatarAddress = avatarAddress;
     this._bio = bio;
     this._activated = activated;
+    this._createdAt = createdAt;
+    this._updatedAt = updatedAt;
   }
 
   String get uid => _uid;
@@ -39,14 +47,21 @@ class UserModel {
   set bio(String bio) => _bio = bio;
   bool get activated => _activated;
   set activated(bool activated) => _activated = activated;
+  Timestamp get createdAt => _createdAt;
+  set createdAt(Timestamp createdAt) => _createdAt = createdAt;
+  Timestamp get updatedAt => _updatedAt;
+  set updatedAt(Timestamp updatedAt) => _updatedAt = updatedAt;
 
   UserModel.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];
     _name = json['name'];
     _email = json['email'];
+    _password = json['password'];
     _avatarAddress = json['avatar_address'];
     _bio = json['bio'];
     _activated = json['activated'];
+    _createdAt = json['created_at'];
+    _updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +72,8 @@ class UserModel {
     data['avatar_address'] = this._avatarAddress;
     data['bio'] = this._bio;
     data['activated'] = this._activated;
+    data['created_at'] = this._createdAt;
+    data['updated_at'] = this._updatedAt;
     return data;
   }
 }
