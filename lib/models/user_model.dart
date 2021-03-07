@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
+import 'package:capyba_challenge/models/publication_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
@@ -11,6 +12,7 @@ class UserModel {
   bool _activated;
   Timestamp _createdAt;
   Timestamp _updatedAt;
+  List<PublicationModel> _publications;
 
   UserModel(
       {String uid,
@@ -21,7 +23,8 @@ class UserModel {
       String bio,
       bool activated,
       Timestamp createdAt,
-      Timestamp updatedAt}) {
+      Timestamp updatedAt,
+      List<PublicationModel> publications}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
@@ -31,6 +34,7 @@ class UserModel {
     this._activated = activated;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
+    this._publications = publications;
   }
 
   String get uid => _uid;
@@ -51,6 +55,9 @@ class UserModel {
   set createdAt(Timestamp createdAt) => _createdAt = createdAt;
   Timestamp get updatedAt => _updatedAt;
   set updatedAt(Timestamp updatedAt) => _updatedAt = updatedAt;
+  List<PublicationModel> get publications => _publications;
+  set publications(List<PublicationModel> publications) =>
+      _publications = publications;
 
   UserModel.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];
@@ -62,6 +69,21 @@ class UserModel {
     _activated = json['activated'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
+  }
+
+  factory UserModel.fromDocument(DocumentSnapshot snapshot) {
+    final doc = snapshot.data();
+
+    return UserModel(
+      uid: doc['uid'],
+      name: doc['name'],
+      email: doc['email'],
+      avatarAddress: doc['avatarAddress'],
+      bio: doc['bio'],
+      activated: doc['activated'],
+      createdAt: doc['created_at'],
+      updatedAt: doc['updated_at'],
+    );
   }
 
   Map<String, dynamic> toJson() {

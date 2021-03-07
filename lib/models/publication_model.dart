@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
+import 'package:capyba_challenge/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PublicationModel {
@@ -9,6 +10,7 @@ class PublicationModel {
   bool _public;
   Timestamp _createdAt;
   Timestamp _updatedAt;
+  UserModel _user;
 
   PublicationModel(
       {String uid,
@@ -17,7 +19,8 @@ class PublicationModel {
       String ownerUid,
       bool public,
       Timestamp createdAt,
-      Timestamp updatedAt}) {
+      Timestamp updatedAt,
+      UserModel user}) {
     this._uid = uid;
     this._description = description;
     this._imageAddress = imageAddress;
@@ -25,6 +28,7 @@ class PublicationModel {
     this._public = public;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
+    this._user = user;
   }
 
   String get uid => _uid;
@@ -41,6 +45,8 @@ class PublicationModel {
   set createdAt(Timestamp createdAt) => _createdAt = createdAt;
   Timestamp get updatedAt => _updatedAt;
   set updatedAt(Timestamp updatedAt) => _updatedAt = updatedAt;
+  UserModel get user => _user;
+  set user(UserModel user) => _user = user;
 
   PublicationModel.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];

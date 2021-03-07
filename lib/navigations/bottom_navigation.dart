@@ -1,6 +1,6 @@
 import 'package:capyba_challenge/components/custom_bottom_navigation_bar.dart';
-import 'package:capyba_challenge/screens/home/home_Screen.dart';
-import 'package:capyba_challenge/screens/restricted/restricted_Screen.dart';
+import 'package:capyba_challenge/screens/home/home_screen.dart';
+import 'package:capyba_challenge/screens/restricted/restricted_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {

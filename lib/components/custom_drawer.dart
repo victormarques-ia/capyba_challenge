@@ -1,7 +1,9 @@
 import 'package:capyba_challenge/components/profile_item.dart';
+import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 import 'drawer_navigation_item.dart';
 
@@ -18,6 +20,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context);
     return Drawer(
       elevation: 2,
       child: Padding(
@@ -75,15 +78,17 @@ class CustomDrawer extends StatelessWidget {
                         },
                         itemSelected: selectedIndex == 0,
                       ),
-                      DrawerNavigationItem(
-                        drawerContext: context,
-                        itemIcon: FeatherIcons.checkSquare,
-                        itemText: "Confirmar conta",
-                        onClick: () {
-                          _drawerItemClicked(context, 2);
-                        },
-                        itemSelected: selectedIndex == 2,
-                      ),
+                      user.activated != null && !user.activated
+                          ? DrawerNavigationItem(
+                              drawerContext: context,
+                              itemIcon: FeatherIcons.checkSquare,
+                              itemText: "Confirmar conta",
+                              onClick: () {
+                                _drawerItemClicked(context, 2);
+                              },
+                              itemSelected: selectedIndex == 2,
+                            )
+                          : Container(),
                       DrawerNavigationItem(
                         drawerContext: context,
                         itemIcon: FeatherIcons.layers,

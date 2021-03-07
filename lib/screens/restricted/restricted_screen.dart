@@ -9,7 +9,7 @@ class RestrictedScreen extends StatelessWidget {
   static String routeName = "/restricted";
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<PublicationModel>>.value(
+    return StreamProvider<List<Future<PublicationModel>>>.value(
       value: PublicationController().allPublications,
       child: Body(),
     );

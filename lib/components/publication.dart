@@ -6,7 +6,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class Publication extends StatelessWidget {
   final String whoPublished;
-  final Function onClickProile;
+  final Function onClickProfile;
   final Function onClickImage;
   final String urlImage;
   final String description;
@@ -17,8 +17,8 @@ class Publication extends StatelessWidget {
     @required this.whoPublished,
     @required this.urlImage,
     @required this.description,
-    @required this.onClickProile,
-    @required this.onClickImage,
+    @optionalTypeArgs this.onClickProfile,
+    @optionalTypeArgs this.onClickImage,
     @optionalTypeArgs this.iLiked,
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class Publication extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: onClickProile,
+          onTap: onClickProfile,
           splashColor: Colors.transparent,
           child: ProfileItem(
             title: whoPublished != null ? whoPublished : "",
@@ -70,7 +70,7 @@ class Publication extends StatelessWidget {
         Container(
           alignment: Alignment.bottomLeft,
           child: Text(
-            description != null ? description : "",
+            description,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             softWrap: false,

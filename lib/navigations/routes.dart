@@ -1,6 +1,7 @@
 import 'package:capyba_challenge/navigations/bottom_navigation.dart';
 import 'package:capyba_challenge/navigations/drawer_navigation.dart';
 import 'package:capyba_challenge/screens/new_publication/new_publication_screen.dart';
+import 'package:capyba_challenge/screens/profile/profile_screen.dart';
 import 'package:capyba_challenge/screens/recover_password/recover_password_screen.dart';
 import 'package:capyba_challenge/screens/register/register_screen.dart';
 import 'package:capyba_challenge/screens/login/login_screen.dart';
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   BottomNavigation.routeName: (context) => BottomNavigation(),
   NewPublicationScreen.routeName: (context) => NewPublicationScreen(),
   SpecificPublicationScreen.routeName: (context) => SpecificPublicationScreen(),
+  ProfileScreen.routeName: (context) => ProfileScreen(),
 };

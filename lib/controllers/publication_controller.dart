@@ -13,6 +13,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 class PublicationController with ChangeNotifier {
   final _publication = new PublicationModel();
   PublicationModel _specificPublication = new PublicationModel();
+  List<PublicationModel> _specificUserPublications = [];
 
   final PublicationRepository _publicationRepository =
       new PublicationRepository();
@@ -21,12 +22,14 @@ class PublicationController with ChangeNotifier {
 
   PublicationModel get publication => _publication;
   PublicationModel get specificPublication => _specificPublication;
+  List<PublicationModel> get specificUserPublications =>
+      _specificUserPublications;
 
-  Stream<List<PublicationModel>> get allPublications {
+  Stream<List<Future<PublicationModel>>> get allPublications {
     return getAllPublications();
   }
 
-  Stream<List<PublicationModel>> get onlyPublicPublications {
+  Stream<List<Future<PublicationModel>>> get onlyPublicPublications {
     return getOnlyPublicPublications();
   }
 
@@ -136,6 +139,16 @@ class PublicationController with ChangeNotifier {
     }
   }
 
+  getUserSpecificPublications(String ownerUid) async {
+    try {
+      _specificUserPublications =
+          await _publicationRepository.getUserSpecificPublications(ownerUid);
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   getSpecificPublication(String publicationUid) async {
     try {
       _specificPublication =
@@ -144,6 +157,7 @@ class PublicationController with ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
   deleteSpecificPublication(

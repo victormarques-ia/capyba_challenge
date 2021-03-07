@@ -33,11 +33,10 @@ class Body extends StatelessWidget {
                 ? Column(
                     children: [
                       Publication(
-                        whoPublished: "Joao Silva",
+                        whoPublished:
+                            publicationController.specificPublication.user.name,
                         description: publicationController
                             .specificPublication.description,
-                        onClickImage: () => print("Cliquei na imagem"),
-                        onClickProile: () => print("Cliquei no profile"),
                         urlImage: publicationController
                             .specificPublication.imageAddress,
                       ),
