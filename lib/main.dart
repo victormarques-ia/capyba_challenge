@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 
 import 'models/user_model.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Capyba Challenge',
         debugShowCheckedModeBanner: false,
         theme: defaultThemeData(context),
