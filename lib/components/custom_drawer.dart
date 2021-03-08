@@ -87,7 +87,7 @@ class CustomDrawer extends StatelessWidget {
                         },
                         itemSelected: selectedIndex == 0,
                       ),
-                      userData.activated != null && !userData.activated
+                      user.activated != null && !user.activated
                           ? DrawerNavigationItem(
                               drawerContext: context,
                               itemIcon: FeatherIcons.checkSquare,

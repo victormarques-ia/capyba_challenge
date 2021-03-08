@@ -8,7 +8,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final UserRepository _userRepository = new UserRepository();
 
-  UserModel _userFromFirebaseUser(User user) {
+  UserModel userFromFirebaseUser(User user) {
     return user != null
         ? (UserModel(
             uid: user.uid,
@@ -18,11 +18,15 @@ class AuthService {
   }
 
   Stream<UserModel> get user {
-    return _auth.authStateChanges().map(_userFromFirebaseUser);
+    return _auth.authStateChanges().map(userFromFirebaseUser);
   }
 
   Future<UserModel> getCurrentUser() async {
-    return _userFromFirebaseUser(_auth.currentUser);
+    return userFromFirebaseUser(_auth.currentUser);
+  }
+
+  User getFirebaseCurrentUser() {
+    return _auth.currentUser;
   }
 
   Future<UserModel> getUserData() async {
@@ -38,7 +42,7 @@ class AuthService {
       );
       User user = authResult.user;
 
-      return _userFromFirebaseUser(user);
+      return userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;
@@ -54,7 +58,7 @@ class AuthService {
 
       User user = authResult.user;
 
-      return _userFromFirebaseUser(user);
+      return userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;
@@ -69,6 +73,10 @@ class AuthService {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  currentUserReload() async {
+    await _auth.currentUser.reload();
   }
 
   Future signOut() async {

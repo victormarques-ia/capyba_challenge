@@ -224,7 +224,7 @@ class UserFormController with ChangeNotifier {
         activated: user.activated,
       );
       bool result = await _userRepository.registerUserData(updatedUser);
-
+      _authService.userFromFirebaseUser(_authService.getFirebaseCurrentUser());
       return result;
     } catch (e) {
       print(e.toString());
