@@ -11,11 +11,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class UserFormController with ChangeNotifier {
-  final _user = new UserModel();
+  UserModel _user = new UserModel();
   final loginForm = GlobalKey<FormState>();
   final registerForm = GlobalKey<FormState>();
   final profileConfigurationsForm = GlobalKey<FormState>();
   bool _validate = false;
+  bool createdUser = false;
 
   final AuthService _authService = new AuthService();
   final ImageService _imageService = new ImageService();
@@ -51,6 +52,11 @@ class UserFormController with ChangeNotifier {
 
   onSavedBio(String value) {
     _user.bio = value;
+    notifyListeners();
+  }
+
+  onCreatedUser() {
+    createdUser = !createdUser;
     notifyListeners();
   }
 
@@ -90,7 +96,7 @@ class UserFormController with ChangeNotifier {
     return customShowBottomDialog(
       context,
       CustomBottomDialog(
-        textMessage: "Login ou senha inválidos.",
+        textMessage: "E-mail ou senha inválidos.",
         backgroundColor: kErrorColor,
         iconMessage: FeatherIcons.alertTriangle,
         labelDialog: "Login",
@@ -169,6 +175,37 @@ class UserFormController with ChangeNotifier {
     }
   }
 
+  update(String userUid, UserModel initialData) async {
+    try {
+      if (_user.name == null) {
+        _user.name = initialData.name;
+      }
+      if (_user.bio == null) {
+        _user.bio = initialData.bio;
+      }
+      String oldImage =
+          _user.avatarAddress != null ? initialData.avatarAddress : null;
+      bool result = await _userRepository.updateUserData(
+        _user,
+        userUid,
+        oldImage,
+      );
+      _validate = result;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  delete() async {
+    try {
+      bool result = await _userRepository.deleteUser(_user.uid);
+      _validate = result;
+      await _authService.deleteCurrentUser();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   register() async {
     try {
       UserModel user = await _authService.registerUser(_user);
@@ -186,7 +223,8 @@ class UserFormController with ChangeNotifier {
         bio: _user.bio,
         activated: user.activated,
       );
-      bool result = await _userRepository.updateUserData(updatedUser);
+      bool result = await _userRepository.registerUserData(updatedUser);
+
       return result;
     } catch (e) {
       print(e.toString());

@@ -2,6 +2,7 @@ import 'package:capyba_challenge/components/user_avatar.dart';
 import 'package:capyba_challenge/controllers/user_form_controller.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/screens/camera/camera_screen.dart';
+import 'package:capyba_challenge/utils/show_custom_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -14,36 +15,40 @@ class Body extends StatelessWidget {
     final userFormController = Provider.of<UserFormController>(context);
 
     return SafeArea(
-      child: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              top: 20.0,
-              bottom: 40.0,
-              left: 16.0,
-              right: 16.0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+      child: userFormController.createdUser != null &&
+              userFormController.createdUser == false
+          ? ListView(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                  child: Stack(
+                  padding: EdgeInsets.only(
+                    top: 20.0,
+                    bottom: 40.0,
+                    left: 16.0,
+                    right: 16.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      UserAvatar(
-                        userAvatarImage: userFormController.user.avatarAddress,
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 30.0),
+                        child: Stack(
+                          children: [
+                            UserAvatar(
+                              userAvatarImage:
+                                  userFormController.user.avatarAddress,
+                            ),
+                            cameraWidget(context, userFormController),
+                          ],
+                        ),
                       ),
-                      cameraWidget(context, userFormController),
+                      RegisterForm()
                     ],
                   ),
                 ),
-                RegisterForm()
               ],
-            ),
-          ),
-        ],
-      ),
+            )
+          : showCustomProgressIndication(),
     );
   }
 

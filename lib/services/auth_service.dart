@@ -61,6 +61,16 @@ class AuthService {
     }
   }
 
+  Future deleteCurrentUser() async {
+    try {
+      User user = _auth.currentUser;
+
+      await user.delete();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future signOut() async {
     try {
       return await _auth.signOut();

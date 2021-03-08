@@ -12,22 +12,39 @@ import 'bottom_navigation.dart';
 
 class DrawerNavigation extends StatefulWidget {
   static String routeName = "/drawer_navigation";
+  final Widget optionalCurrentWidgetView;
+  final int optionalCurrentIndex;
+
+  const DrawerNavigation(
+      {Key key, this.optionalCurrentWidgetView, this.optionalCurrentIndex})
+      : super(key: key);
   @override
-  _DrawerNavigationState createState() => _DrawerNavigationState();
+  _DrawerNavigationState createState() =>
+      _DrawerNavigationState(optionalCurrentWidgetView, optionalCurrentIndex);
 }
 
 class _DrawerNavigationState extends State<DrawerNavigation> {
   GlobalKey<ScaffoldState> _key = GlobalKey();
   UserModel _user;
+  final Widget optionalCurrentWidgetView;
+  final int optionalCurrentIndex;
   Widget currentWidgetView;
   int drawerIndex = 0;
+
+  _DrawerNavigationState(
+      this.optionalCurrentWidgetView, this.optionalCurrentIndex);
 
   @override
   void initState() {
     super.initState();
     setState(() {
       _getUser();
-      currentWidgetView = BottomNavigation();
+      if (optionalCurrentIndex != null) {
+        drawerIndex = optionalCurrentIndex;
+      }
+      currentWidgetView = optionalCurrentWidgetView != null
+          ? optionalCurrentWidgetView
+          : BottomNavigation();
     });
   }
 
@@ -46,7 +63,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
           currentWidgetView = BottomNavigation();
           break;
         case 1:
-          currentWidgetView = ProfileConfigurationsScreen(userData: _user);
+          currentWidgetView = ProfileConfigurationsScreen();
           break;
         case 2:
           currentWidgetView = ConfirmAccountScreen();

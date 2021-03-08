@@ -1,5 +1,8 @@
+import 'package:capyba_challenge/models/user_model.dart';
+import 'package:capyba_challenge/utils/message_confirm_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 import 'bottom_navigation_item.dart';
 
@@ -14,6 +17,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context);
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -41,7 +45,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
               iconData: FeatherIcons.shield,
               text: "Restrito",
               selected: selectedIndex == 1,
-              onPress: () => setIndex(1),
+              onPress: () {
+                if (user.activated) {
+                  setIndex(1);
+                } else {
+                  showMessageConfirmAccount(context);
+                }
+              },
             ),
           ],
         ),

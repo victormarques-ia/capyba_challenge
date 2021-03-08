@@ -3,6 +3,7 @@ import 'package:capyba_challenge/global/styles/constants.dart';
 import 'package:capyba_challenge/models/publication_model.dart';
 import 'package:capyba_challenge/models/user_model.dart';
 import 'package:capyba_challenge/repositories/user/publication_repository.dart';
+import 'package:capyba_challenge/repositories/user/user_repository.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
 import 'package:capyba_challenge/services/image_service.dart';
 import 'package:capyba_challenge/utils/custom_show_bottom_dialog.dart';
@@ -12,18 +13,16 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class PublicationController with ChangeNotifier {
   final _publication = new PublicationModel();
-  PublicationModel _specificPublication = new PublicationModel();
-  List<PublicationModel> _specificUserPublications = [];
+  bool createdPublication = false;
+  bool deletedPublication = false;
 
   final PublicationRepository _publicationRepository =
       new PublicationRepository();
+  final UserRepository _userRepository = new UserRepository();
   final ImageService _imageService = new ImageService();
   final AuthService _authService = new AuthService();
 
   PublicationModel get publication => _publication;
-  PublicationModel get specificPublication => _specificPublication;
-  List<PublicationModel> get specificUserPublications =>
-      _specificUserPublications;
 
   Stream<List<Future<PublicationModel>>> get allPublications {
     return getAllPublications();
@@ -45,6 +44,16 @@ class PublicationController with ChangeNotifier {
 
   onSavedImage(String value) {
     _publication.imageAddress = value;
+    notifyListeners();
+  }
+
+  onCreatedPublication() {
+    createdPublication = !createdPublication;
+    notifyListeners();
+  }
+
+  onDeletedPublication() {
+    deletedPublication = !deletedPublication;
     notifyListeners();
   }
 
@@ -139,21 +148,30 @@ class PublicationController with ChangeNotifier {
     }
   }
 
-  getUserSpecificPublications(String ownerUid) async {
+  Future<List<PublicationModel>> getUserSpecificPublications(
+      String ownerUid) async {
     try {
-      _specificUserPublications =
-          await _publicationRepository.getUserSpecificPublications(ownerUid);
-      notifyListeners();
+      return await _publicationRepository.getUserSpecificPublications(ownerUid);
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
-  getSpecificPublication(String publicationUid) async {
+  Future<UserModel> getSelectedUser(String ownerUid) async {
     try {
-      _specificPublication =
-          await _publicationRepository.getSpecificPublication(publicationUid);
-      notifyListeners();
+      return await _userRepository.getUser(ownerUid);
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return null;
+  }
+
+  Future<PublicationModel> getSpecificPublication(String publicationUid) async {
+    try {
+      return await _publicationRepository
+          .getSpecificPublication(publicationUid);
     } catch (e) {
       print(e.toString());
     }

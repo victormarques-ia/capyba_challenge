@@ -1,6 +1,8 @@
 import 'package:capyba_challenge/components/custom_input_field.dart';
 import 'package:capyba_challenge/components/rounded_button.dart';
 import 'package:capyba_challenge/controllers/user_form_controller.dart';
+import 'package:capyba_challenge/navigations/drawer_navigation.dart';
+import 'package:capyba_challenge/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +55,10 @@ class RegisterForm extends StatelessWidget {
                       await userFormController.showCustomDialogImage(
                           context, "É necessário adicionar uma imagem.");
                     } else {
+                      userFormController.onCreatedUser();
                       await userFormController.register();
+                      userFormController.onCreatedUser();
+
                       if (!userFormController.validate) {
                         await userFormController
                             .showCustomDialogRegister(context);

@@ -4,20 +4,31 @@ import 'package:capyba_challenge/components/header_screen_item.dart';
 import 'package:capyba_challenge/components/rounded_button.dart';
 import 'package:capyba_challenge/controllers/user_form_controller.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
+import 'package:capyba_challenge/models/user_model.dart';
+import 'package:capyba_challenge/utils/message_feature_in_construction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 class ProfileConfigurationsForm extends StatelessWidget {
+  final UserModel initialData;
+
+  const ProfileConfigurationsForm({
+    Key key,
+    @required this.initialData,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context);
     final userFormController = Provider.of<UserFormController>(context);
+
     return Form(
       key: userFormController.profileConfigurationsForm,
       autovalidateMode: AutovalidateMode.always,
       child: Column(
         children: [
           CustomInputField(
+            initialValue: initialData.name,
             hint: "Nome",
             iconData: FeatherIcons.italic,
             inputType: TextInputType.text,
@@ -25,12 +36,14 @@ class ProfileConfigurationsForm extends StatelessWidget {
             onChanged: userFormController.onSavedName,
           ),
           CustomInputField(
+            initialValue: initialData.email,
             hint: "E-mail",
             iconData: FeatherIcons.mail,
             inputType: TextInputType.emailAddress,
             disableTextField: false,
           ),
           CustomInputField(
+            initialValue: initialData.bio,
             hint: "Bio",
             iconData: FeatherIcons.italic,
             inputType: TextInputType.text,
@@ -44,22 +57,20 @@ class ProfileConfigurationsForm extends StatelessWidget {
                   text: "Salvar",
                   color: Theme.of(context).primaryColor,
                   onPress: () async {
-                    if (userFormController.user.avatarAddress == null) {
-                      await userFormController.showCustomDialogImage(
-                          context, "É necessário adicionar uma imagem.");
+                    await userFormController.update(
+                      user.uid,
+                      initialData,
+                    );
+                    if (userFormController.validate) {
+                      await userFormController
+                          .showCustomDialogProfileConfigurationsError(
+                        context,
+                      );
                     } else {
-                      await userFormController.register();
-                      if (!userFormController.validate) {
-                        await userFormController
-                            .showCustomDialogProfileConfigurationsError(
-                          context,
-                        );
-                      } else {
-                        await userFormController
-                            .showCustomDialogProfileConfigurationsSuccess(
-                          context,
-                        );
-                      }
+                      await userFormController
+                          .showCustomDialogProfileConfigurationsSuccess(
+                        context,
+                      );
                     }
                   },
                 ),
@@ -71,7 +82,8 @@ class ProfileConfigurationsForm extends StatelessWidget {
                     titleHeaderItem: "Deletar conta",
                     textStyle: TextTextStyle,
                     iconHeaderItem: FeatherIcons.trash2,
-                    onClick: () => _showDeleteProfileDialog(context),
+                    onClick: () => showMessageFeatureInConstructior(context),
+                    //_showDeleteProfileDialog(context, userFormController),
                   ),
                 )
               ],
@@ -82,7 +94,8 @@ class ProfileConfigurationsForm extends StatelessWidget {
     );
   }
 
-  _showDeleteProfileDialog(BuildContext context) {
+  _showDeleteProfileDialog(
+      BuildContext context, UserFormController userFormController) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -115,9 +128,8 @@ class ProfileConfigurationsForm extends StatelessWidget {
                       height: 32.0,
                       width: 98.0,
                       color: Theme.of(context).primaryColor,
-                      onPress: () {
-                        print("CONTA DELETADA");
-                        Navigator.of(context).pop();
+                      onPress: () async {
+                        await userFormController.delete();
                       },
                       buttonPadding:
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),

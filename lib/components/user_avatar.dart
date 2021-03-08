@@ -22,12 +22,12 @@ class UserAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: radius != null ? radius - 2.0 : 72.0,
         backgroundColor: kBackgroundColor,
-        backgroundImage: urlAvatarImage != null
-            ? NetworkImage(urlAvatarImage)
-            : userAvatarImage != null
-                ? FileImage(
-                    new File(userAvatarImage),
-                  )
+        backgroundImage: userAvatarImage != null
+            ? FileImage(
+                new File(userAvatarImage),
+              )
+            : urlAvatarImage != null
+                ? NetworkImage(urlAvatarImage)
                 : AssetImage(
                     "assets/images/capyba_simbolo.png",
                   ),

@@ -1,5 +1,4 @@
 import 'package:capyba_challenge/components/custom_app_bar.dart';
-import 'package:capyba_challenge/controllers/publication_controller.dart';
 import 'package:flutter/material.dart';
 import 'components/body.dart';
 

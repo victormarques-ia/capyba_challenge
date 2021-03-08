@@ -1,3 +1,5 @@
+import 'package:capyba_challenge/components/custom_error_load.dart';
+import 'package:capyba_challenge/components/custom_progress_indicator.dart';
 import 'package:capyba_challenge/components/header_screen_item.dart';
 import 'package:capyba_challenge/components/publication.dart';
 import 'package:capyba_challenge/controllers/publication_controller.dart';
@@ -86,17 +88,8 @@ class Body extends StatelessWidget {
                                   ),
                                 );
                               } else if (snapshot.hasError) {
-                                children = Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        FeatherIcons.alertTriangle,
-                                        color: kErrorColor,
-                                        size: 64.0,
-                                      ),
-                                      Text('Error: ${snapshot.error}'),
-                                    ],
-                                  ),
+                                children = CustomErrorLoad(
+                                  errorMessage: snapshot.error.toString(),
                                 );
                               }
                               return Container(
@@ -110,14 +103,7 @@ class Body extends StatelessWidget {
                   : Expanded(
                       child: Align(
                         alignment: Alignment.center,
-                        child: SizedBox(
-                          child: CircularProgressIndicator(
-                            valueColor: new AlwaysStoppedAnimation<Color>(
-                                Theme.of(context).primaryColor),
-                          ),
-                          width: 32,
-                          height: 32,
-                        ),
+                        child: CustomProgressIndicator(),
                       ),
                     ),
             ],

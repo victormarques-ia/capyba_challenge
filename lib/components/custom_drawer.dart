@@ -1,7 +1,9 @@
 import 'package:capyba_challenge/components/profile_item.dart';
 import 'package:capyba_challenge/services/auth_service.dart';
+import 'package:capyba_challenge/utils/message_confirm_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
@@ -22,6 +24,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context);
     return Drawer(
       elevation: 2,
       child: Padding(
@@ -33,11 +36,15 @@ class CustomDrawer extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: ProfileItem(
-                    title: userData.name,
+                    title: userData.name != null ? userData.name : "",
                     avatarImage: userData.avatarAddress,
                     subTitle: "Ver perfil",
                     onClick: () {
-                      _drawerItemClicked(context, 1);
+                      if (user.activated) {
+                        _drawerItemClicked(context, 1);
+                      } else {
+                        showMessageConfirmAccount(context);
+                      }
                     },
                   ),
                 ),
@@ -96,7 +103,11 @@ class CustomDrawer extends StatelessWidget {
                         itemIcon: FeatherIcons.layers,
                         itemText: "Minhas publicações",
                         onClick: () {
-                          _drawerItemClicked(context, 3);
+                          if (user.activated) {
+                            _drawerItemClicked(context, 3);
+                          } else {
+                            showMessageConfirmAccount(context);
+                          }
                         },
                         itemSelected: selectedIndex == 3,
                       ),

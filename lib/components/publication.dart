@@ -73,7 +73,7 @@ class Publication extends StatelessWidget {
         Container(
           alignment: Alignment.bottomLeft,
           child: Text(
-            description,
+            description != null ? description : "",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             softWrap: false,

@@ -33,6 +33,7 @@ class PublicationRepository {
       return query.docs.map((doc) async {
         PublicationModel publication = PublicationModel.fromDocument(doc);
         UserModel user = await _userRepository.getUser(publication.ownerUid);
+
         publication.user = user;
 
         return publication;
