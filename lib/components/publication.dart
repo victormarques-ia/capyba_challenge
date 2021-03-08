@@ -1,5 +1,6 @@
 import 'package:capyba_challenge/components/profile_item.dart';
 import 'package:capyba_challenge/global/styles/constants.dart';
+import 'package:capyba_challenge/utils/message_feature_in_construction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -61,10 +62,13 @@ class Publication extends StatelessWidget {
         SizedBox(
           height: 12.0,
         ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Icon(
-            FeatherIcons.heart,
+        InkWell(
+          onTap: () => showMessageFeatureInConstructior(context),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Icon(
+              FeatherIcons.heart,
+            ),
           ),
         ),
         SizedBox(
